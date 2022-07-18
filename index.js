@@ -3,12 +3,11 @@
 const fp = require('fastify-plugin')
 const { Lyra } = require('./dist/cjs/lyra')
 
-function fastifyLyra(fastify, options, next) {
+function fastifyLyra (fastify, options, next) {
   const { schema, defaultLanguage } = options
 
   if (fastify.lyra) {
-    next(new Error('fastify-lyra is already registered'))
-    return
+    return next(new Error('fastify-lyra is already registered'))
   }
 
   const client = new Lyra({
