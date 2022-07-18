@@ -1,5 +1,7 @@
 # fastify-lyra
 
+![Continuous Integration](https://github.com/mateonunez/fastify-lyra/workflows/ci/badge.svg)
+
 Lyra plugin for Fastify.
 
 ## Installation
