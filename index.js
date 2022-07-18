@@ -1,7 +1,7 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const { Lyra } = require('./dist/cjs/lyra')
+const { Lyra } = require('@nearform/lyra')
 
 function fastifyLyra (fastify, options, next) {
   const { schema, defaultLanguage } = options
