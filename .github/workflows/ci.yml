@@ -16,4 +16,3 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run test:ci
-      - run: bash <(curl -s https://codecov.io/bash)
