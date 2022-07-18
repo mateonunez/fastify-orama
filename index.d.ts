@@ -1,8 +1,9 @@
 import { FastifyPluginCallback } from 'fastify'
+import { LyraProperties } from './dist/cjs/lyra'
 
-export type LyraOptions = {
-  schema: object
-  defaultLanguage: string
-}
+export type LyraProperties = LyraProperties
 
-export const fastifyLyra: FastifyPluginCallback<LyraOptions>
+declare const fastifyLyra: FastifyPluginCallback<LyraOptions>
+
+export default fastifyLyra
+export { fastifyLyra }
