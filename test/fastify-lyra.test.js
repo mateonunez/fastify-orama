@@ -21,7 +21,7 @@ t.beforeEach(async () => {
   await fastify.close()
 })
 
-test('fastify should exist', (t) => {
+test('Should exists correctly FastifyLyra plugin', (t) => {
   t.plan(1)
   const fastify = Fastify()
   fastify.register(fastifyLyra, {
@@ -37,7 +37,7 @@ test('fastify should exist', (t) => {
   })
 })
 
-test('fastify should insert and retrieve data on lyra', async (t) => {
+test('Should insert and retrieve data using Lyra', async (t) => {
   t.plan(3)
 
   const fastify = Fastify()
@@ -64,6 +64,33 @@ test('fastify should insert and retrieve data on lyra', async (t) => {
   t.equal(search.hits[0].author, 'Mateo Nunez')
 
   fastify.close()
+})
+
+test('Should throw when trying to register multiple instances without giving a name', (t) => {
+  t.plan(2)
+
+  const fastify = Fastify()
+
+  t.teardown(() => fastify.close())
+
+  fastify.register(fastifyLyra, {
+    schema: {
+      quote: 'string',
+      author: 'string'
+    }
+  })
+
+  fastify.register(fastifyLyra, {
+    schema: {
+      anotherColumn: 'string',
+      antoherHere: 'string'
+    }
+  })
+
+  fastify.ready((errors) => {
+    t.ok(errors)
+    t.equal(errors.message, 'fastify-lyra is already registered')
+  })
 })
 
 setInterval(() => {
