@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fastify/fastify-mysql.git"
+    "url": "git+https://github.com/mateonunez/fastify-lyra.git"
   },
   "keywords": [
     "fastify",

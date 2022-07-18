@@ -7,9 +7,9 @@ Lyra plugin for Fastify.
 ## Installation
 
 ```
-npm install fastify-lyra
+npm install @mateonunez/fastify-lyra
 ```
-
+****
 ## Usage
 
 ### Example
