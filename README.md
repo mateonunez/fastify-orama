@@ -16,7 +16,7 @@ npm install @mateonunez/fastify-lyra
 
 ```js
 const Fastify = require('fastify')
-const fastifyLyra = require('fastify-lyra')
+const fastifyLyra = require('@mateonunez/fastify-lyra')
 
 const app = Fastify()
 
