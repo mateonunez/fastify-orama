@@ -16,7 +16,7 @@ app.lyra.insert({ quote: 'Hello', author: 'World' })
 app.get('/hello', async () => {
   const result = await app.lyra.search({ term: 'hello' })
 
-  expectType<object[]>(result.hits)
+  expectType<any[]>(result.hits)
 
   return {
     hello: result.hits
