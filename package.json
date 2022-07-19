@@ -4,6 +4,11 @@
   "description": "Fastify Lyra connection and management library",
   "main": "index.js",
   "types": "index.d.ts",
+  "author": {
+    "name": "Mateo Nunez",
+    "email": "mateonunez95@gmail.com",
+    "url": "http://github.com/mateonunez"
+  },
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
