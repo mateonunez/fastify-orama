@@ -3,7 +3,7 @@
 const fp = require('fastify-plugin')
 const { Lyra } = require('@nearform/lyra')
 
-function FastifyLyra(fastify, options, next) {
+function FastifyLyra (fastify, options, next) {
   const { schema, defaultLanguage = 'english', stemming = false } = options
 
   if (fastify.lyra) {
