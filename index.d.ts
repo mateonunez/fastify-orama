@@ -1,5 +1,5 @@
 import { FastifyPluginCallback } from 'fastify'
-import { Lyra, LyraProperties } from './dist/cjs/lyra'
+import { Lyra, LyraProperties } from '@nearform/lyra'
 
 export type { LyraProperties }
 
