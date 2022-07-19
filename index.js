@@ -3,8 +3,8 @@
 const fp = require('fastify-plugin')
 const { Lyra } = require('@nearform/lyra')
 
-function fastifyLyra (fastify, options, next) {
-  const { schema, defaultLanguage } = options
+function FastifyLyra(fastify, options, next) {
+  const { schema, defaultLanguage = 'english', stemming = false } = options
 
   if (fastify.lyra) {
     return next(new Error('fastify-lyra is already registered'))
@@ -12,7 +12,8 @@ function fastifyLyra (fastify, options, next) {
 
   const client = new Lyra({
     schema,
-    defaultLanguage
+    defaultLanguage,
+    stemming
   })
 
   fastify.decorate('lyra', client)
@@ -20,7 +21,7 @@ function fastifyLyra (fastify, options, next) {
   next()
 }
 
-module.exports = fp(fastifyLyra, {
+module.exports = fp(FastifyLyra, {
   fastify: '4.x',
   name: '@fastify/lyra'
 })
