@@ -3,7 +3,7 @@ import { Lyra, LyraProperties } from '@nearform/lyra'
 
 export type { LyraProperties }
 
-declare const fastifyLyra: FastifyPluginCallback<LyraProperties>
+declare const FastifyLyra: FastifyPluginCallback<LyraProperties>
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -11,5 +11,5 @@ declare module 'fastify' {
   }
 }
 
-export default fastifyLyra
-export { fastifyLyra }
+export default FastifyLyra
+export { FastifyLyra }
