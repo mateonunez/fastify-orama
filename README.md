@@ -16,11 +16,11 @@ npm install @mateonunez/fastify-lyra
 
 ```js
 const Fastify = require('fastify')
-const fastifyLyra = require('@mateonunez/fastify-lyra')
+const FastifyLyra = require('@mateonunez/fastify-lyra')
 
 const app = Fastify()
 
-app.register(fastifyLyra, {
+app.register(FastifyLyra, {
   schema: {
     quote: "string",
     author: "string"
