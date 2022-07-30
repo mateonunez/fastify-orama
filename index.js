@@ -1,7 +1,7 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const { Lyra } = require('@nearform/lyra')
+const { create, insert, search } = require('@nearform/lyra')
 
 function FastifyLyra (fastify, options, next) {
   const { schema, defaultLanguage = 'english', stemming = true } = options
@@ -10,13 +10,16 @@ function FastifyLyra (fastify, options, next) {
     return next(new Error('fastify-lyra is already registered'))
   }
 
-  const client = new Lyra({
+  const db = create({
     schema,
     defaultLanguage,
     stemming
   })
 
-  fastify.decorate('lyra', client)
+  fastify.decorate('lyra', {
+    insert: (...args) => insert(db, ...args),
+    search: (...args) => search(db, ...args)
+  })
 
   next()
 }
