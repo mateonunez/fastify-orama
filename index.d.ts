@@ -1,5 +1,5 @@
 import { FastifyPluginCallback } from 'fastify'
-import { Lyra, LyraProperties, PropertiesSchema } from '@nearform/lyra'
+import { Lyra, Configuration, PropertiesSchema } from '@nearform/lyra'
 import { SearchParams } from '@nearform/lyra'
 
 export type Language = typeof SUPPORTED_LANGUAGES
@@ -67,7 +67,7 @@ export type LyraInstance<T extends PropertiesSchema> = {
   ): SearchResult
 }
 
-declare const FastifyLyra: FastifyPluginCallback<LyraProperties<any>>
+declare const FastifyLyra: FastifyPluginCallback<Configuration<any>>
 
 declare module 'fastify' {
   interface FastifyInstance {
