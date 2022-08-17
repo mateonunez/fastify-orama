@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/mateonunez/fastify-lyra#readme",
   "dependencies": {
-    "@nearform/lyra": "^0.0.3",
+    "@nearform/lyra": "^0.0.4",
     "fastify-plugin": "^4.0.0"
   },
   "devDependencies": {
