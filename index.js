@@ -1,7 +1,7 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const { create, insert, search } = require('@nearform/lyra')
+const { create, insert, search } = require('@lyrasearch/lyra')
 
 function FastifyLyra (fastify, options, next) {
   const { schema, defaultLanguage = 'english', stemming = true } = options

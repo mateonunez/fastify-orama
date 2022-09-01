@@ -1,6 +1,6 @@
 import { FastifyPluginCallback } from 'fastify'
-import { Lyra, Configuration, PropertiesSchema } from '@nearform/lyra'
-import { SearchParams } from '@nearform/lyra'
+import { Lyra, Configuration, PropertiesSchema } from '@lyrasearch/lyra'
+import { SearchParams } from '@lyrasearch/lyra'
 
 export type Language = typeof SUPPORTED_LANGUAGES
 
