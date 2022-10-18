@@ -1,6 +1,5 @@
 'use strict'
 
-const whyIsNodeRunning = require('why-is-node-running')
 const t = require('tap')
 const test = t.test
 const Fastify = require('fastify')
@@ -21,7 +20,7 @@ t.beforeEach(async () => {
   await fastify.close()
 })
 
-test('Should exists correctly FastifyLyra plugin', (t) => {
+test('Should exists correctly FastifyLyra plugin', t => {
   t.plan(1)
   const fastify = Fastify()
   fastify.register(fastifyLyra, {
@@ -37,7 +36,7 @@ test('Should exists correctly FastifyLyra plugin', (t) => {
   })
 })
 
-test('Should insert and retrieve data using Lyra', async (t) => {
+test('Should insert and retrieve data using Lyra', async t => {
   t.plan(3)
 
   const fastify = Fastify()
@@ -54,7 +53,7 @@ test('Should insert and retrieve data using Lyra', async (t) => {
     author: 'Mateo Nunez'
   })
 
-  const search = await fastify.lyra.search({
+  const search = fastify.lyra.search({
     term: 'fastify-lyra'
   })
 
@@ -66,8 +65,25 @@ test('Should insert and retrieve data using Lyra', async (t) => {
   fastify.close()
 })
 
-test('Should throw when trying to register multiple instances without giving a name', (t) => {
-  t.plan(2)
+test('Should throw an error when the schema is not declared', t => {
+  t.plan(1)
+
+  const fastify = Fastify()
+
+  t.teardown(() => fastify.close())
+
+  fastify.register(fastifyLyra)
+
+  fastify.ready(errors => {
+    t.equal(
+      errors.message,
+      'You must provide a schema to create a new database'
+    )
+  })
+})
+
+test('Should throw when trying to register multiple instances without giving a name', t => {
+  t.plan(1)
 
   const fastify = Fastify()
 
@@ -87,12 +103,7 @@ test('Should throw when trying to register multiple instances without giving a n
     }
   })
 
-  fastify.ready((errors) => {
-    t.ok(errors)
+  fastify.ready(errors => {
     t.equal(errors.message, 'fastify-lyra is already registered')
   })
 })
-
-setInterval(() => {
-  whyIsNodeRunning()
-}, 5000).unref()
