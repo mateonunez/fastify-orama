@@ -65,6 +65,7 @@ export type LyraInstance<T extends PropertiesSchema> = {
     params: SearchParams<T>,
     config?: InsertConfig
   ): SearchResult
+  save(): string
 }
 
 declare const FastifyLyra: FastifyPluginCallback<Configuration<any>>
