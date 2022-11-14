@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/mateonunez/fastify-lyra#readme",
   "dependencies": {
-    "@lyrasearch/lyra": "^0.2.8",
+    "@lyrasearch/lyra": "^0.3.0",
     "fastify-plugin": "^4.3.0"
   },
   "devDependencies": {
