@@ -42,8 +42,8 @@ test('Should insert and retrieve data using Lyra', async t => {
     term: 'fastify-lyra'
   })
 
-  t.equal(search.hits[0].quote, 'Hi there! This is fastify-lyra plugin.')
-  t.equal(search.hits[0].author, 'Mateo Nunez')
+  t.equal(search.hits[0].document.quote, 'Hi there! This is fastify-lyra plugin.')
+  t.equal(search.hits[0].document.author, 'Mateo Nunez')
   fastify.close()
 })
 
