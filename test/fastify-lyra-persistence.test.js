@@ -53,7 +53,7 @@ test('Should retrieve search results loading Lyra database from file', async t =
   })
 
   t.equal(result.count, 1)
-  t.same(result.hits[0].author, 'Mateo Nunez')
+  t.same(result.hits[0].document.author, 'Mateo Nunez')
   fastify.close()
 })
 
