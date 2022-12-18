@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@lyrasearch/plugin-data-persistence": "^0.0.4",
-    "@types/node": "^18.11.11",
+    "@types/node": "^18.11.17",
     "fastify": "^4.10.2",
     "husky": "^8.0.2",
     "snazzy": "^9.0.0",
