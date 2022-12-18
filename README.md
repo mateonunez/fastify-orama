@@ -7,7 +7,7 @@ Lyra plugin for Fastify.
 ## Installation
 
 ```
-npm install @mateonunez/fastify-lyra
+npm install fastify-lyra
 ```
 ****
 ## Usage
@@ -16,7 +16,7 @@ npm install @mateonunez/fastify-lyra
 
 ```js
 const Fastify = require('fastify')
-const FastifyLyra = require('@mateonunez/fastify-lyra')
+const FastifyLyra = require('fastify-lyra')
 
 const app = Fastify()
 
@@ -53,7 +53,7 @@ This plugin implements [@lyrasearch/plugin-data-persistence](https://github.com/
 
 ```js
 const Fastify = require('fastify')
-const FastifyLyra = require('@mateonunez/fastify-lyra')
+const FastifyLyra = require('fastify-lyra')
 
 const app = Fastify()
 

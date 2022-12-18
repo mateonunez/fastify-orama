@@ -1,5 +1,5 @@
 {
-  "name": "@mateonunez/fastify-lyra",
+  "name": "fastify-lyra",
   "version": "0.2.1",
   "description": "Fastify Lyra connection and management library",
   "main": "index.js",
