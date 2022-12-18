@@ -1,6 +1,6 @@
 {
   "name": "fastify-lyra",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Fastify Lyra connection and management library",
   "main": "index.js",
   "types": "index.d.ts",
