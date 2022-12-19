@@ -27,7 +27,7 @@ app.register(FastifyLyra, {
   }
 })
 
-app.get('/quotes/:query', async function (req, reply) {
+app.get('/quotes/:query', function (req, reply) {
   try {
     const { params: { query } } = req
 
@@ -66,7 +66,7 @@ app.register(FastifyLyra, {
   }
 })
 
-app.post('/quotes', async function (req, reply) {
+app.post('/quotes', function (req, reply) {
   try {
     const { body: { author, quote } } = req
 
