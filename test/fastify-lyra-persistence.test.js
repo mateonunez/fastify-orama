@@ -10,93 +10,101 @@ const { persistToFile, restoreFromFile } = require('@lyrasearch/plugin-data-pers
 const dbName = './lyra.json'
 const dbFormat = 'json'
 
-t.beforeEach(() => {
-  const db = create({
+t.beforeEach(async () => {
+  const db = await create({
     schema: {
       author: 'string',
       quote: 'string'
     }
   })
 
-  insert(db, {
+  await insert(db, {
     author: 'Mateo Nunez',
     quote: 'Hi there! This is fastify-lyra plugin.'
   })
 
-  persistToFile(db, dbFormat, dbName)
+  await persistToFile(db, dbFormat, dbName)
 })
 
-test('Should load Lyra database from file', t => {
-  t.plan(1)
-  const fastify = Fastify()
+test('Should load Lyra database from file', async ({ plan, ok, teardown }) => {
+  plan(1)
 
-  fastify.register(fastifyLyra, {
-    persistence: true
-  })
-
-  fastify.ready(() => {
-    t.ok(fastify.lyra)
+  teardown(() => {
     fastify.close()
   })
-})
 
-test('Should retrieve search results loading Lyra database from file', async t => {
-  t.plan(2)
   const fastify = Fastify()
-
   await fastify.register(fastifyLyra, {
     persistence: true
   })
 
-  const result = fastify.lyra.search({
+  ok(fastify.lyra)
+})
+
+test('Should retrieve search results loading Lyra database from file', async ({ plan, same, teardown }) => {
+  plan(2)
+
+  teardown(() => {
+    fastify.close()
+  })
+
+  const fastify = Fastify()
+  await fastify.register(fastifyLyra, {
+    persistence: true
+  })
+  const results = await fastify.lyra.search({
     term: 'fastify-lyra'
   })
 
-  t.equal(result.count, 1)
-  t.same(result.hits[0].document.author, 'Mateo Nunez')
-  fastify.close()
+  same(results.count, 1)
+
+  const { document } = results.hits[Object.keys(results.hits)[0]]
+  same(document.author, 'Mateo Nunez')
 })
 
-test('Should save correctly the new database on filesystem', async t => {
-  t.plan(1)
+test('Should save correctly the new database on filesystem', async ({ plan, same, teardown }) => {
+  plan(1)
+
+  teardown(() => {
+    fastify.close()
+  })
 
   const fastify = Fastify()
-
   await fastify.register(fastifyLyra, {
     persistence: true
   })
 
-  fastify.lyra.insert({
+  await fastify.lyra.insert({
     quote: 'Lyra and Fastify are awesome together.',
     author: 'Mateo Nunez'
   })
 
-  fastify.lyra.save()
-
-  const db2 = restoreFromFile(dbFormat, dbName)
-
-  const result = search(db2, {
+  await fastify.lyra.save()
+  const db2 = await restoreFromFile(dbFormat, dbName)
+  const results = await search(db2, {
     term: 'Mateo Nunez'
   })
-
-  t.equal(result.count, 2)
-  fastify.close()
+  same(results.count, 2)
 })
 
-test("Should thrown an error when database persitent doesn't exists", t => {
-  t.plan(1)
-  const fastify = Fastify()
+test("Should thrown an error when database persitent doesn't exists", async ({ plan, same, teardown }) => {
+  plan(1)
 
-  const databaseName = './nope.json'
-  fastify.register(fastifyLyra, {
-    persistence: true,
-    persistency: {
-      name: databaseName
-    }
-  })
-
-  fastify.ready(errors => {
-    t.equal(errors.message, `The database file ${databaseName} does not exist`)
+  teardown(() => {
     fastify.close()
   })
+
+  const fastify = Fastify()
+  const databaseName = './nope.json'
+
+  try {
+    await fastify.register(fastifyLyra, {
+      persistence: true,
+      persistency: {
+        name: databaseName
+      }
+    })
+  } catch (error) {
+    same(error.message, `The database file ${databaseName} does not exist`)
+  }
 })
