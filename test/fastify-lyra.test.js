@@ -29,7 +29,7 @@ test('Should insert and retrieve data using Lyra', async ({ plan, same, teardown
   teardown(() => {
     fastify.close()
   })
-  
+
   const fastify = Fastify()
 
   await fastify.register(fastifyLyra, {
@@ -84,7 +84,7 @@ test('Should throw when trying to register multiple instances without giving a n
         author: 'string'
       }
     })
-  
+
     await fastify.register(fastifyLyra, {
       schema: {
         anotherColumn: 'string',
