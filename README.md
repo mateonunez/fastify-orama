@@ -20,18 +20,18 @@ const FastifyLyra = require('fastify-lyra')
 
 const app = Fastify()
 
-app.register(FastifyLyra, {
+await app.register(FastifyLyra, {
   schema: {
     quote: "string",
     author: "string"
   }
 })
 
-app.get('/quotes/:query', function (req, reply) {
+app.get('/quotes/:query', async function (req, reply) {
   try {
     const { params: { query } } = req
 
-    const search = app.lyra.search({
+    const search = await app.lyra.search({
       term: query,
       properties: ["quote"]
     })
@@ -58,7 +58,7 @@ const FastifyLyra = require('fastify-lyra')
 const app = Fastify()
 
 // The database must exists to load it in your Fastify application
-app.register(FastifyLyra, {
+await app.register(FastifyLyra, {
   persistence: true,
   persistency: {
     name: './quotes.json',
@@ -66,16 +66,16 @@ app.register(FastifyLyra, {
   }
 })
 
-app.post('/quotes', function (req, reply) {
+app.post('/quotes', async function (req, reply) {
   try {
     const { body: { author, quote } } = req
 
-    fastify.lyra.insert({
+    await fastify.lyra.insert({
       author,
       quote
     })
 
-    fastify.lyra.save()
+    await fastify.lyra.save()
 
     return { success: true }
   } catch (err) {
