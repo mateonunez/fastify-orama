@@ -1,6 +1,6 @@
-import { FastifyPluginCallback } from 'fastify'
-import { Lyra, Configuration, PropertiesSchema } from '@lyrasearch/lyra'
-import { SearchParams } from '@lyrasearch/lyra'
+import type { FastifyPluginCallback } from 'fastify'
+import type { Lyra, Configuration, PropertiesSchema } from '@lyrasearch/lyra/dist/types'
+import type { SearchParams } from '@lyrasearch/lyra/dist/methods/search'
 
 export type Language = typeof SUPPORTED_LANGUAGES
 
