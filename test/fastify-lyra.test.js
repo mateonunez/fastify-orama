@@ -5,10 +5,14 @@ const test = t.test
 const Fastify = require('fastify')
 const fastifyLyra = require('..')
 
-test('Should exists correctly FastifyLyra plugin', async ({ plan, ok }) => {
+test('Should exists correctly FastifyLyra plugin', async ({ plan, ok, teardown }) => {
   plan(1)
-  const fastify = Fastify()
 
+  teardown(() => {
+    fastify.close()
+  })
+
+  const fastify = Fastify()
   await fastify.register(fastifyLyra, {
     schema: {
       quote: 'string',
@@ -19,8 +23,13 @@ test('Should exists correctly FastifyLyra plugin', async ({ plan, ok }) => {
   ok(fastify.lyra)
 })
 
-test('Should insert and retrieve data using Lyra', async ({ plan, same }) => {
+test('Should insert and retrieve data using Lyra', async ({ plan, same, teardown }) => {
   plan(2)
+
+  teardown(() => {
+    fastify.close()
+  })
+  
   const fastify = Fastify()
 
   await fastify.register(fastifyLyra, {
@@ -41,10 +50,11 @@ test('Should insert and retrieve data using Lyra', async ({ plan, same }) => {
 
   same(search.hits[0].document.quote, 'Hi there! This is fastify-lyra plugin.')
   same(search.hits[0].document.author, 'Mateo Nunez')
-  fastify.close()
 })
 
-test('Should throw an error when the schema is not declared', async ({ same, teardown }) => {
+test('Should throw an error when the schema is not declared', async ({ same, plan, teardown }) => {
+  plan(1)
+
   teardown(() => {
     fastify.close()
   })
@@ -58,10 +68,12 @@ test('Should throw an error when the schema is not declared', async ({ same, tea
   }
 })
 
-test('Should throw when trying to register multiple instances without giving a name', async ({ same, teardown }) => {
+test('Should throw when trying to register multiple instances without giving a name', async ({ same, plan, teardown }) => {
   teardown(() => {
     fastify.close()
   })
+
+  plan(1)
 
   const fastify = Fastify()
 
