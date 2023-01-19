@@ -37,11 +37,11 @@
   },
   "homepage": "https://github.com/mateonunez/fastify-lyra#readme",
   "dependencies": {
-    "@lyrasearch/lyra": "^0.3.1",
+    "@lyrasearch/lyra": "^0.4.1",
     "fastify-plugin": "^4.4.0"
   },
   "devDependencies": {
-    "@lyrasearch/plugin-data-persistence": "^0.0.4",
+    "@lyrasearch/plugin-data-persistence": "^0.0.5",
     "@types/node": "^18.11.17",
     "fastify": "^4.10.2",
     "husky": "^8.0.2",
