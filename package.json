@@ -41,7 +41,7 @@
     "fastify-plugin": "^4.4.0"
   },
   "devDependencies": {
-    "@lyrasearch/plugin-data-persistence": "^0.0.5",
+    "@lyrasearch/plugin-data-persistence": "^0.0.6",
     "@types/node": "^18.11.17",
     "fastify": "^4.10.2",
     "husky": "^8.0.2",
