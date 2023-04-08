@@ -3,9 +3,9 @@
 const t = require('tap')
 const test = t.test
 const Fastify = require('fastify')
-const fastifyLyra = require('..')
+const FastifyOrama = require('..')
 
-test('Should exists correctly FastifyLyra plugin', async ({ plan, ok, teardown }) => {
+test('Should exists correctly FastifyOrama plugin', async ({ plan, ok, teardown }) => {
   plan(1)
 
   teardown(() => {
@@ -13,17 +13,17 @@ test('Should exists correctly FastifyLyra plugin', async ({ plan, ok, teardown }
   })
 
   const fastify = Fastify()
-  await fastify.register(fastifyLyra, {
+  await fastify.register(FastifyOrama, {
     schema: {
       quote: 'string',
       author: 'string'
     }
   })
 
-  ok(fastify.lyra)
+  ok(fastify.orama)
 })
 
-test('Should insert and retrieve data using Lyra', async ({ plan, same, teardown }) => {
+test('Should insert and retrieve data using Orama', async ({ plan, same, teardown }) => {
   plan(2)
 
   teardown(() => {
@@ -32,23 +32,23 @@ test('Should insert and retrieve data using Lyra', async ({ plan, same, teardown
 
   const fastify = Fastify()
 
-  await fastify.register(fastifyLyra, {
+  await fastify.register(FastifyOrama, {
     schema: {
       quote: 'string',
       author: 'string'
     }
   })
 
-  await fastify.lyra.insert({
-    quote: 'Hi there! This is fastify-lyra plugin.',
+  await fastify.orama.insert({
+    quote: 'Hi there! This is fastify-orama plugin.',
     author: 'Mateo Nunez'
   })
 
-  const search = await fastify.lyra.search({
-    term: 'fastify-lyra'
+  const search = await fastify.orama.search({
+    term: 'fastify-orama'
   })
 
-  same(search.hits[0].document.quote, 'Hi there! This is fastify-lyra plugin.')
+  same(search.hits[0].document.quote, 'Hi there! This is fastify-orama plugin.')
   same(search.hits[0].document.author, 'Mateo Nunez')
 })
 
@@ -62,7 +62,7 @@ test('Should throw an error when the schema is not declared', async ({ same, pla
   const fastify = Fastify()
 
   try {
-    await fastify.register(fastifyLyra)
+    await fastify.register(FastifyOrama)
   } catch (error) {
     same(error.message, 'You must provide a schema to create a new database')
   }
@@ -78,20 +78,20 @@ test('Should throw when trying to register multiple instances without giving a n
   const fastify = Fastify()
 
   try {
-    await fastify.register(fastifyLyra, {
+    await fastify.register(FastifyOrama, {
       schema: {
         quote: 'string',
         author: 'string'
       }
     })
 
-    await fastify.register(fastifyLyra, {
+    await fastify.register(FastifyOrama, {
       schema: {
         anotherColumn: 'string',
         antoherHere: 'string'
       }
     })
   } catch (error) {
-    same(error.message, 'fastify-lyra is already registered')
+    same(error.message, 'fastify-orama is already registered')
   }
 })

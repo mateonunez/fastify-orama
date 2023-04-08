@@ -3,11 +3,11 @@
 const t = require('tap')
 const { test } = t
 const Fastify = require('fastify')
-const fastifyLyra = require('..')
-const { create, insert, search } = require('@lyrasearch/lyra')
-const { persistToFile, restoreFromFile } = require('@lyrasearch/plugin-data-persistence')
+const FastifyOrama = require('..')
+const { create, insert, search } = require('@orama/orama')
+const { persistToFile, restoreFromFile } = require('@orama/plugin-data-persistence')
 
-const dbName = './lyra.json'
+const dbName = './orama.json'
 const dbFormat = 'json'
 
 t.beforeEach(async () => {
@@ -20,13 +20,13 @@ t.beforeEach(async () => {
 
   await insert(db, {
     author: 'Mateo Nunez',
-    quote: 'Hi there! This is fastify-lyra plugin.'
+    quote: 'Hi there! This is fastify-orama plugin.'
   })
 
   await persistToFile(db, dbFormat, dbName)
 })
 
-test('Should load Lyra database from file', async ({ plan, ok, teardown }) => {
+test('Should load Orama database from file', async ({ plan, ok, teardown }) => {
   plan(1)
 
   teardown(() => {
@@ -34,14 +34,14 @@ test('Should load Lyra database from file', async ({ plan, ok, teardown }) => {
   })
 
   const fastify = Fastify()
-  await fastify.register(fastifyLyra, {
+  await fastify.register(FastifyOrama, {
     persistence: true
   })
 
-  ok(fastify.lyra)
+  ok(fastify.orama)
 })
 
-test('Should retrieve search results loading Lyra database from file', async ({ plan, same, teardown }) => {
+test('Should retrieve search results loading Orama database from file', async ({ plan, same, teardown }) => {
   plan(2)
 
   teardown(() => {
@@ -49,11 +49,11 @@ test('Should retrieve search results loading Lyra database from file', async ({ 
   })
 
   const fastify = Fastify()
-  await fastify.register(fastifyLyra, {
+  await fastify.register(FastifyOrama, {
     persistence: true
   })
-  const results = await fastify.lyra.search({
-    term: 'fastify-lyra'
+  const results = await fastify.orama.search({
+    term: 'fastify-orama'
   })
 
   same(results.count, 1)
@@ -70,16 +70,16 @@ test('Should save correctly the new database on filesystem', async ({ plan, same
   })
 
   const fastify = Fastify()
-  await fastify.register(fastifyLyra, {
+  await fastify.register(FastifyOrama, {
     persistence: true
   })
 
-  await fastify.lyra.insert({
-    quote: 'Lyra and Fastify are awesome together.',
+  await fastify.orama.insert({
+    quote: 'Orama and Fastify are awesome together.',
     author: 'Mateo Nunez'
   })
 
-  await fastify.lyra.save()
+  await fastify.orama.save()
   const db2 = await restoreFromFile(dbFormat, dbName)
   const results = await search(db2, {
     term: 'Mateo Nunez'
@@ -98,7 +98,7 @@ test("Should thrown an error when database persitent doesn't exists", async ({ p
   const databaseName = './nope.json'
 
   try {
-    await fastify.register(fastifyLyra, {
+    await fastify.register(FastifyOrama, {
       persistence: true,
       persistency: {
         name: databaseName

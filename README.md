@@ -1,13 +1,13 @@
-# fastify-lyra
+# fastify-orama
 
-![Continuous Integration](https://github.com/mateonunez/fastify-lyra/workflows/ci/badge.svg)
+![Continuous Integration](https://github.com/mateonunez/fastify-orama/workflows/ci/badge.svg)
 
-Lyra plugin for Fastify.
+Orama plugin for Fastify.
 
 ## Installation
 
 ```
-npm install fastify-lyra
+npm install fastify-orama
 ```
 ****
 ## Usage
@@ -16,11 +16,11 @@ npm install fastify-lyra
 
 ```js
 const Fastify = require('fastify')
-const FastifyLyra = require('fastify-lyra')
+const FastifyOrama = require('fastify-orama')
 
 const app = Fastify()
 
-await app.register(FastifyLyra, {
+await app.register(FastifyOrama, {
   schema: {
     quote: "string",
     author: "string"
@@ -31,7 +31,7 @@ app.get('/quotes/:query', async function (req, reply) {
   try {
     const { params: { query } } = req
 
-    const search = await app.lyra.search({
+    const search = await app.orama.search({
       term: query,
       properties: ["quote"]
     })
@@ -47,18 +47,18 @@ app.listen(3000)
 
 ## Usage with data persistence
 
-This plugin implements [@lyrasearch/plugin-data-persistence](https://github.com/lyrasearch/plugin-data-persistence) to allow users to `load` or `save` database instances.
+This plugin implements [@oramasearch/plugin-data-persistence](https://github.com/oramasearch/plugin-data-persistence) to allow users to `load` or `save` database instances.
 
 ### Example
 
 ```js
 const Fastify = require('fastify')
-const FastifyLyra = require('fastify-lyra')
+const FastifyOrama = require('fastify-orama')
 
 const app = Fastify()
 
 // The database must exists to load it in your Fastify application
-await app.register(FastifyLyra, {
+await app.register(FastifyOrama, {
   persistence: true,
   persistency: {
     name: './quotes.json',
@@ -70,12 +70,12 @@ app.post('/quotes', async function (req, reply) {
   try {
     const { body: { author, quote } } = req
 
-    await fastify.lyra.insert({
+    await fastify.orama.insert({
       author,
       quote
     })
 
-    await fastify.lyra.save()
+    await fastify.orama.save()
 
     return { success: true }
   } catch (err) {
@@ -89,4 +89,4 @@ app.listen(3000)
 
 ## License
 
-FastifyLyra is licensed under the [MIT](LICENSE) license.
+FastifyOrama is licensed under the [MIT](LICENSE) license.

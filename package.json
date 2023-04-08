@@ -1,7 +1,7 @@
 {
-  "name": "fastify-lyra",
+  "name": "fastify-orama",
   "version": "0.3.1",
-  "description": "Fastify Lyra connection and management library",
+  "description": "Fastify orama connection and management library",
   "main": "index.js",
   "types": "index.d.ts",
   "author": {
@@ -22,26 +22,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mateonunez/fastify-lyra.git"
+    "url": "git+https://github.com/mateonunez/fastify-orama.git"
   },
   "keywords": [
     "fastify",
-    "lyra",
+    "orama",
     "database",
     "search",
     "engine"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mateonunez/fastify-lyra/issues"
+    "url": "https://github.com/mateonunez/fastify-orama/issues"
   },
-  "homepage": "https://github.com/mateonunez/fastify-lyra#readme",
+  "homepage": "https://github.com/mateonunez/fastify-orama#readme",
   "dependencies": {
-    "@lyrasearch/lyra": "^0.4.1",
+    "@orama/orama": "1.0.0-beta.8",
     "fastify-plugin": "^4.4.0"
   },
   "devDependencies": {
-    "@lyrasearch/plugin-data-persistence": "^0.1.1",
+    "@orama/plugin-data-persistence": "1.0.0-beta.8",
     "@types/node": "^18.11.17",
     "fastify": "^4.10.2",
     "husky": "^8.0.2",

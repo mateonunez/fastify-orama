@@ -1,22 +1,23 @@
 import Fastify from 'fastify'
 import { expectType } from 'tsd'
-import fastifyLyra from '.'
+import FastifyOrama from '.'
+import { Result } from '@orama/orama'
 
 const app = Fastify()
 
-app.register(fastifyLyra, {
+app.register(FastifyOrama, {
   schema: {
     quote: 'string',
     author: 'string'
-  }
+  },
 })
 
-app.lyra.insert({ quote: 'Hello', author: 'World' })
+app.orama.insert({ quote: 'Hello', author: 'World' })
 
 app.get('/hello', async () => {
-  const result = await app.lyra.search({ term: 'hello' })
+  const result = await app.orama.search({ term: 'hello' })
 
-  expectType<any[]>(result.hits)
+  expectType<Result[]>(result.hits)
 
   return {
     hello: result.hits
