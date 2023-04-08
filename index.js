@@ -1,16 +1,16 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const { create, insert, search } = require('@lyrasearch/lyra')
+const { create, insert, search } = require('@orama/orama')
 const path = require('path')
 const { existsSync } = require('fs')
-const { restoreFromFile, persistToFile } = require('@lyrasearch/plugin-data-persistence')
+const { restoreFromFile, persistToFile } = require('@orama/plugin-data-persistence')
 
-async function FastifyLyra (fastify, options, next) {
+async function FastifyOrama (fastify, options, next) {
   const { schema, defaultLanguage = 'english', stemming = true, persistence = false } = options
 
-  if (fastify.lyra) {
-    return next(new Error('fastify-lyra is already registered'))
+  if (fastify.orama) {
+    return next(new Error('fastify-orama is already registered'))
   }
 
   let db
@@ -18,7 +18,7 @@ async function FastifyLyra (fastify, options, next) {
   let dbFormat
 
   if (persistence) {
-    dbName = options.persistency?.name || './lyra.json'
+    dbName = options.persistency?.name || './orama.json'
     dbFormat = options.persistency?.format || 'json'
     const datbaseExists = existsSync(path.resolve(dbName))
 
@@ -37,7 +37,7 @@ async function FastifyLyra (fastify, options, next) {
     })
   }
 
-  await fastify.decorate('lyra', {
+  await fastify.decorate('orama', {
     insert: (...args) => insert(db, ...args),
     search: (...args) => search(db, ...args),
     save: () => persistToFile(db, dbFormat, dbName)
@@ -46,7 +46,7 @@ async function FastifyLyra (fastify, options, next) {
   next()
 }
 
-module.exports = fp(FastifyLyra, {
+module.exports = fp(FastifyOrama, {
   fastify: '4.x',
-  name: '@fastify/lyra'
+  name: '@fastify/orama'
 })

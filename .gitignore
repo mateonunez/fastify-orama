@@ -140,7 +140,7 @@ dist
 .idea
 
 # DB test
-lyra.json
+orama.json
 
 # Snyk
 .dccache
