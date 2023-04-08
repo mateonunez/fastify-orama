@@ -1,6 +1,6 @@
 {
   "name": "fastify-orama",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Fastify orama connection and management library",
   "main": "index.js",
   "types": "index.d.ts",
