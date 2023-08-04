@@ -1,20 +1,24 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@orama/orama':
-    specifier: 1.0.0-beta.8
-    version: 1.0.0-beta.8
+    specifier: 1.0.0-beta.16
+    version: 1.0.0-beta.16
   fastify-plugin:
     specifier: ^4.4.0
     version: 4.5.0
 
 devDependencies:
   '@orama/plugin-data-persistence':
-    specifier: 1.0.0-beta.8
-    version: 1.0.0-beta.8
+    specifier: 1.0.0-beta.16
+    version: 1.0.0-beta.16
   '@types/node':
-    specifier: ^18.11.17
-    version: 18.11.18
+    specifier: ^20.1.0
+    version: 20.4.7
   fastify:
     specifier: ^4.10.2
     version: 4.11.0
@@ -387,15 +391,15 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@orama/orama@1.0.0-beta.8:
-    resolution: {integrity: sha512-m7tcRTZqPcqp5iDCdir07RIbbmrv9B0O4YksPd2mhJ8dq1TICj3HsYvvYr6Xl3m/dJiJgGSOvt05zF4Xi3ovKA==}
+  /@orama/orama@1.0.0-beta.16:
+    resolution: {integrity: sha512-mmjP9+w7EgnpyLLs/vIPHsNKwreTsHAkPK44JQ62kRYseatHT5VEL/5nr/duBAReEZVbqMFst1jVJCHsucXr3g==}
     engines: {node: '>= 16.0.0'}
 
-  /@orama/plugin-data-persistence@1.0.0-beta.8:
-    resolution: {integrity: sha512-4eLaQHxgGqVgNdPLi70keqC+H1X7738jlvsUdZcrzXu/SAj21c6U9f5B3661kpFaniZ/hWs/hl9D9HVCxnAFCg==}
+  /@orama/plugin-data-persistence@1.0.0-beta.16:
+    resolution: {integrity: sha512-8UvNU8YkKN7WPnwCG34AvHiCLn37IUsOu8PhE/BN0R0Ap6HqnXzFgyVzLQ/5CFvv+hKglrIAnvNlvH72Y+y8TQ==}
     dependencies:
       '@msgpack/msgpack': 2.8.0
-      '@orama/orama': 1.0.0-beta.8
+      '@orama/orama': 1.0.0-beta.16
       dpack: 0.6.22
     dev: true
 
@@ -430,8 +434,8 @@ packages:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
-  /@types/node@18.11.18:
-    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
+  /@types/node@20.4.7:
+    resolution: {integrity: sha512-bUBrPjEry2QUTsnuEjzjbS7voGWCc30W0qzgMf90GPeDGFRakvrz47ju+oqDAKCXLUCe39u57/ORMl/O/04/9g==}
     dev: true
 
   /@types/normalize-package-data@2.4.1:
