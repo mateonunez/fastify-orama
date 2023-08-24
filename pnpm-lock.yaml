@@ -33,7 +33,7 @@ devDependencies:
     version: 17.0.0
   tap:
     specifier: ^16.3.2
-    version: 16.3.3(typescript@5.0.2)
+    version: 16.3.8(typescript@5.0.2)
   tsd:
     specifier: ^0.28.0
     version: 0.28.0
@@ -3254,8 +3254,8 @@ packages:
       yaml: 1.10.2
     dev: true
 
-  /tap@16.3.3(typescript@5.0.2):
-    resolution: {integrity: sha512-E6Ti4FaH3zUvOtl13GA60n8aodRj44S8Vu5efM84U5NmquJo4+y21+2VM9r9jR5iiEcce5dqvlrrwAhZ6r11xg==}
+  /tap@16.3.8(typescript@5.0.2):
+    resolution: {integrity: sha512-ARpCLtOFST37MholnZm7JMFikGq0x/T9uBdZH83iuddPNgwDTZQiD8+4x7VABUfVWS0ozKUkmHZ5OOzMI3fLPg==}
     engines: {node: '>=12'}
     hasBin: true
     peerDependencies:
