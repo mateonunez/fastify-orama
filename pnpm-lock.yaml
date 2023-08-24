@@ -33,13 +33,13 @@ devDependencies:
     version: 17.0.0
   tap:
     specifier: ^16.3.2
-    version: 16.3.8(typescript@5.0.2)
+    version: 16.3.8(typescript@5.1.6)
   tsd:
     specifier: ^0.28.0
     version: 0.28.0
   typescript:
     specifier: ^5.0.2
-    version: 5.0.2
+    version: 5.1.6
 
 packages:
 
@@ -3254,7 +3254,7 @@ packages:
       yaml: 1.10.2
     dev: true
 
-  /tap@16.3.8(typescript@5.0.2):
+  /tap@16.3.8(typescript@5.1.6):
     resolution: {integrity: sha512-ARpCLtOFST37MholnZm7JMFikGq0x/T9uBdZH83iuddPNgwDTZQiD8+4x7VABUfVWS0ozKUkmHZ5OOzMI3fLPg==}
     engines: {node: '>=12'}
     hasBin: true
@@ -3293,7 +3293,7 @@ packages:
       tap-parser: 11.0.2
       tap-yaml: 1.0.2
       tcompare: 5.0.7
-      typescript: 5.0.2
+      typescript: 5.1.6
       which: 2.0.2
     transitivePeerDependencies:
       - supports-color
@@ -3435,9 +3435,9 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: true
 
-  /typescript@5.0.2:
-    resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
-    engines: {node: '>=12.20'}
+  /typescript@5.1.6:
+    resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+    engines: {node: '>=14.17'}
     hasBin: true
     dev: true
 
