@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@orama/orama':
-    specifier: 1.0.0-beta.16
-    version: 1.0.0-beta.16
+    specifier: 1.2.1
+    version: 1.2.1
   fastify-plugin:
     specifier: ^4.4.0
     version: 4.5.0
@@ -394,6 +394,12 @@ packages:
   /@orama/orama@1.0.0-beta.16:
     resolution: {integrity: sha512-mmjP9+w7EgnpyLLs/vIPHsNKwreTsHAkPK44JQ62kRYseatHT5VEL/5nr/duBAReEZVbqMFst1jVJCHsucXr3g==}
     engines: {node: '>= 16.0.0'}
+    dev: true
+
+  /@orama/orama@1.2.1:
+    resolution: {integrity: sha512-vq3ar9REofq7Q87riamQB5y1aJc068Qwbnd7uAboeSfRTDj2+KdNiwjTEk01SVjr8eAvCx8iRZl4rkEYo0ETYw==}
+    engines: {node: '>= 16.0.0'}
+    dev: false
 
   /@orama/plugin-data-persistence@1.0.0-beta.16:
     resolution: {integrity: sha512-8UvNU8YkKN7WPnwCG34AvHiCLn37IUsOu8PhE/BN0R0Ap6HqnXzFgyVzLQ/5CFvv+hKglrIAnvNlvH72Y+y8TQ==}
