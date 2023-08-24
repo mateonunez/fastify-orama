@@ -6,11 +6,11 @@ const path = require('path')
 const { existsSync } = require('fs')
 const { restoreFromFile, persistToFile } = require('@orama/plugin-data-persistence')
 
-async function FastifyOrama (fastify, options, next) {
+async function FastifyOrama (fastify, options) {
   const { schema, defaultLanguage = 'english', stemming = true, persistence = false } = options
 
   if (fastify.orama) {
-    return next(new Error('fastify-orama is already registered'))
+    throw new Error('fastify-orama is already registered')
   }
 
   let db
@@ -23,12 +23,12 @@ async function FastifyOrama (fastify, options, next) {
     const datbaseExists = existsSync(path.resolve(dbName))
 
     if (!datbaseExists) {
-      return next(new Error(`The database file ${dbName} does not exist`))
+      throw new Error(`The database file ${dbName} does not exist`)
     }
 
     db = await restoreFromFile(dbFormat, `./${dbName}`)
   } else {
-    if (!schema) return next(new Error('You must provide a schema to create a new database'))
+    if (!schema) { throw new Error('You must provide a schema to create a new database') }
 
     db = await create({
       schema,
@@ -37,13 +37,11 @@ async function FastifyOrama (fastify, options, next) {
     })
   }
 
-  await fastify.decorate('orama', {
+  fastify.decorate('orama', {
     insert: (...args) => insert(db, ...args),
     search: (...args) => search(db, ...args),
     save: () => persistToFile(db, dbFormat, dbName)
   })
-
-  next()
 }
 
 module.exports = fp(FastifyOrama, {
