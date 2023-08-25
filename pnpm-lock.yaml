@@ -9,7 +9,7 @@ dependencies:
     specifier: 1.0.0-beta.16
     version: 1.0.0-beta.16
   fastify-plugin:
-    specifier: ^4.4.0
+    specifier: ^4.5.1
     version: 4.5.1
 
 devDependencies:
@@ -17,29 +17,29 @@ devDependencies:
     specifier: 1.0.0-beta.16
     version: 1.0.0-beta.16
   '@types/node':
-    specifier: ^20.1.0
-    version: 20.5.4
+    specifier: ^20.5.6
+    version: 20.5.6
   fastify:
-    specifier: ^4.10.2
+    specifier: ^4.21.0
     version: 4.21.0
   husky:
-    specifier: ^8.0.2
+    specifier: ^8.0.3
     version: 8.0.3
   snazzy:
     specifier: ^9.0.0
     version: 9.0.0
   standard:
-    specifier: ^17.0.0
+    specifier: ^17.1.0
     version: 17.1.0
   tap:
-    specifier: ^16.3.2
-    version: 16.3.8(typescript@5.1.6)
+    specifier: ^16.3.8
+    version: 16.3.8(typescript@5.2.2)
   tsd:
-    specifier: ^0.28.0
+    specifier: ^0.28.1
     version: 0.28.1
   typescript:
-    specifier: ^5.0.2
-    version: 5.1.6
+    specifier: ^5.2.2
+    version: 5.2.2
 
 packages:
 
@@ -459,8 +459,8 @@ packages:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
-  /@types/node@20.5.4:
-    resolution: {integrity: sha512-Y9vbIAoM31djQZrPYjpTLo0XlaSwOIsrlfE3LpulZeRblttsLQRFRlBAppW0LOxyT3ALj2M5vU1ucQQayQH3jA==}
+  /@types/node@20.5.6:
+    resolution: {integrity: sha512-Gi5wRGPbbyOTX+4Y2iULQ27oUPrefaB0PxGQJnfyWN3kvEDGM3mIB5M/gQLmitZf7A9FmLeaqxD3L1CXpm3VKQ==}
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -3425,7 +3425,7 @@ packages:
       yaml: 1.10.2
     dev: true
 
-  /tap@16.3.8(typescript@5.1.6):
+  /tap@16.3.8(typescript@5.2.2):
     resolution: {integrity: sha512-ARpCLtOFST37MholnZm7JMFikGq0x/T9uBdZH83iuddPNgwDTZQiD8+4x7VABUfVWS0ozKUkmHZ5OOzMI3fLPg==}
     engines: {node: '>=12'}
     hasBin: true
@@ -3464,7 +3464,7 @@ packages:
       tap-parser: 11.0.2
       tap-yaml: 1.0.2
       tcompare: 5.0.7
-      typescript: 5.1.6
+      typescript: 5.2.2
       which: 2.0.2
     transitivePeerDependencies:
       - supports-color
@@ -3636,8 +3636,8 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: true
 
-  /typescript@5.1.6:
-    resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+  /typescript@5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true
