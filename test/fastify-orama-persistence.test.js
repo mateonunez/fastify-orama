@@ -1,16 +1,16 @@
 'use strict'
 
-const t = require('tap')
-const { test } = t
-const Fastify = require('fastify')
-const FastifyOrama = require('..')
-const { create, insert, search } = require('@orama/orama')
-const { persistToFile, restoreFromFile } = require('@orama/plugin-data-persistence')
+import { beforeEach, it, after } from 'node:test'
+import { ok, strictEqual } from 'node:assert'
+import Fastify from 'fastify'
+import FastifyOrama from '../index.js'
+import { create, insert, search } from '@orama/orama'
+import { persistToFile, restoreFromFile } from '@orama/plugin-data-persistence/server'
 
 const dbName = './orama.json'
 const dbFormat = 'json'
 
-t.beforeEach(async () => {
+beforeEach(async () => {
   const db = await create({
     schema: {
       author: 'string',
@@ -26,10 +26,8 @@ t.beforeEach(async () => {
   await persistToFile(db, dbFormat, dbName)
 })
 
-test('Should load Orama database from file', async ({ plan, ok, teardown }) => {
-  plan(1)
-
-  teardown(() => {
+it('Should load Orama database from file', async () => {
+  after(() => {
     fastify.close()
   })
 
@@ -41,10 +39,8 @@ test('Should load Orama database from file', async ({ plan, ok, teardown }) => {
   ok(fastify.orama)
 })
 
-test('Should retrieve search results loading Orama database from file', async ({ plan, same, teardown }) => {
-  plan(2)
-
-  teardown(() => {
+it('Should retrieve search results loading Orama database from file', async () => {
+  after(() => {
     fastify.close()
   })
 
@@ -56,16 +52,14 @@ test('Should retrieve search results loading Orama database from file', async ({
     term: 'fastify-orama'
   })
 
-  same(results.count, 1)
+  strictEqual(results.count, 1)
 
   const { document } = results.hits[Object.keys(results.hits)[0]]
-  same(document.author, 'Mateo Nunez')
+  strictEqual(document.author, 'Mateo Nunez')
 })
 
-test('Should save correctly the new database on filesystem', async ({ plan, same, teardown }) => {
-  plan(1)
-
-  teardown(() => {
+it('Should save correctly the new database on filesystem', async () => {
+  after(() => {
     fastify.close()
   })
 
@@ -84,13 +78,12 @@ test('Should save correctly the new database on filesystem', async ({ plan, same
   const results = await search(db2, {
     term: 'Mateo Nunez'
   })
-  same(results.count, 2)
+
+  strictEqual(results.count, 2)
 })
 
-test("Should thrown an error when database persitent doesn't exists", async ({ plan, same, teardown }) => {
-  plan(1)
-
-  teardown(() => {
+it("Should thrown an error when database persitent doesn't exists", async () => {
+  after(() => {
     fastify.close()
   })
 
@@ -105,6 +98,9 @@ test("Should thrown an error when database persitent doesn't exists", async ({ p
       }
     })
   } catch (error) {
-    same(error.message, `The database file ${databaseName} does not exist`)
+    strictEqual(
+      error.message,
+      `The database file ${databaseName} does not exist`
+    )
   }
 })
