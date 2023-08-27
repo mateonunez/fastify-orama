@@ -15,8 +15,8 @@ npm install fastify-orama
 ### Example
 
 ```js
-const Fastify = require('fastify')
-const FastifyOrama = require('fastify-orama')
+import Fastify from 'fastify'
+import FastifyOrama from 'fastify-orama'
 
 const app = Fastify()
 
@@ -52,8 +52,8 @@ This plugin implements [@oramasearch/plugin-data-persistence](https://github.com
 ### Example
 
 ```js
-const Fastify = require('fastify')
-const FastifyOrama = require('fastify-orama')
+import Fastify from 'fastify'
+import FastifyOrama from 'fastify-orama'
 
 const app = Fastify()
 

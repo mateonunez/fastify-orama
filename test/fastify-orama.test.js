@@ -1,14 +1,12 @@
 'use strict'
 
-const t = require('tap')
-const test = t.test
-const Fastify = require('fastify')
-const FastifyOrama = require('..')
+import { it, after } from 'node:test'
+import { ok, strictEqual } from 'node:assert'
+import Fastify from 'fastify'
+import FastifyOrama from '../index.js'
 
-test('Should exists correctly FastifyOrama plugin', async ({ plan, ok, teardown }) => {
-  plan(1)
-
-  teardown(() => {
+it('Should exists correctly FastifyOrama plugin', async () => {
+  after(() => {
     fastify.close()
   })
 
@@ -23,10 +21,8 @@ test('Should exists correctly FastifyOrama plugin', async ({ plan, ok, teardown 
   ok(fastify.orama)
 })
 
-test('Should insert and retrieve data using Orama', async ({ plan, same, teardown }) => {
-  plan(2)
-
-  teardown(() => {
+it('Should insert and retrieve data using Orama', async () => {
+  after(() => {
     fastify.close()
   })
 
@@ -48,14 +44,12 @@ test('Should insert and retrieve data using Orama', async ({ plan, same, teardow
     term: 'fastify-orama'
   })
 
-  same(search.hits[0].document.quote, 'Hi there! This is fastify-orama plugin.')
-  same(search.hits[0].document.author, 'Mateo Nunez')
+  strictEqual(search.hits[0].document.quote, 'Hi there! This is fastify-orama plugin.')
+  strictEqual(search.hits[0].document.author, 'Mateo Nunez')
 })
 
-test('Should throw an error when the schema is not declared', async ({ same, plan, teardown }) => {
-  plan(1)
-
-  teardown(() => {
+it('Should throw an error when the schema is not declared', async () => {
+  after(() => {
     fastify.close()
   })
 
@@ -64,16 +58,14 @@ test('Should throw an error when the schema is not declared', async ({ same, pla
   try {
     await fastify.register(FastifyOrama)
   } catch (error) {
-    same(error.message, 'You must provide a schema to create a new database')
+    strictEqual(error.message, 'You must provide a schema to create a new database')
   }
 })
 
-test('Should throw when trying to register multiple instances without giving a name', async ({ same, plan, teardown }) => {
-  teardown(() => {
+it('Should throw when trying to register multiple instances without giving a name', async () => {
+  after(() => {
     fastify.close()
   })
-
-  plan(1)
 
   const fastify = Fastify()
 
@@ -92,6 +84,6 @@ test('Should throw when trying to register multiple instances without giving a n
       }
     })
   } catch (error) {
-    same(error.message, 'fastify-orama is already registered')
+    strictEqual(error.message, 'fastify-orama is already registered')
   }
 })
