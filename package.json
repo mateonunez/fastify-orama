@@ -1,6 +1,6 @@
 {
   "name": "fastify-orama",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Orama search-engine plugin for Fastify",
   "main": "index.js",
   "type": "module",
@@ -8,7 +8,7 @@
   "author": {
     "name": "Mateo Nunez",
     "email": "mateonunez95@gmail.com",
-    "url": "http://github.com/mateonunez"
+    "url": "https://github.com/mateonunez"
   },
   "scripts": {
     "lint": "standard | snazzy",
