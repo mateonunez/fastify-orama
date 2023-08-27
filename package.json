@@ -1,7 +1,7 @@
 {
   "name": "fastify-orama",
-  "version": "0.4.1",
-  "description": "Fastify orama connection and management library",
+  "version": "0.5.0",
+  "description": "Orama search-engine plugin for Fastify",
   "main": "index.js",
   "type": "module",
   "types": "index.d.ts",
