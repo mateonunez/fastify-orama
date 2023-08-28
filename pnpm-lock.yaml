@@ -8,20 +8,20 @@ dependencies:
   '@orama/orama':
     specifier: 1.2.1
     version: 1.2.1
+  '@orama/plugin-data-persistence':
+    specifier: 1.2.1
+    version: 1.2.1
   fastify-plugin:
     specifier: ^4.5.1
     version: 4.5.1
 
 devDependencies:
-  '@orama/plugin-data-persistence':
-    specifier: 1.2.1
-    version: 1.2.1
   '@types/node':
     specifier: ^20.5.6
     version: 20.5.6
   fastify:
     specifier: ^4.21.0
-    version: 4.21.0
+    version: 4.22.0
   husky:
     specifier: ^8.0.3
     version: 8.0.3
@@ -155,7 +155,7 @@ packages:
   /@msgpack/msgpack@2.8.0:
     resolution: {integrity: sha512-h9u4u/jiIRKbq25PM+zymTyW6bhTzELvOoUd+AvYriWOAKpLGnIamaET3pnHYoI5iYphAHBI4ayx0MehR+VVPQ==}
     engines: {node: '>= 10'}
-    dev: true
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -181,6 +181,7 @@ packages:
   /@orama/orama@1.2.1:
     resolution: {integrity: sha512-vq3ar9REofq7Q87riamQB5y1aJc068Qwbnd7uAboeSfRTDj2+KdNiwjTEk01SVjr8eAvCx8iRZl4rkEYo0ETYw==}
     engines: {node: '>= 16.0.0'}
+    dev: false
 
   /@orama/plugin-data-persistence@1.2.1:
     resolution: {integrity: sha512-oqfoixt8UG19vVDQfogSXr64F3GF49Z3EoWcdCTYvo68mG5+Fpvai7z6W2hhijV+2PzUVREUibFgo6qWv+MykQ==}
@@ -188,7 +189,7 @@ packages:
       '@msgpack/msgpack': 2.8.0
       '@orama/orama': 1.2.1
       dpack: 0.6.22
-    dev: true
+    dev: false
 
   /@sinclair/typebox@0.25.24:
     resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
@@ -636,7 +637,7 @@ packages:
 
   /dpack@0.6.22:
     resolution: {integrity: sha512-WGPNlW2OAE7Bj0eODMpAHUcEqxrlg01e9OFZDxQodminIgC194/cRHT7K04Z1j7AUEWTeeplYGrIv/xRdwU9Hg==}
-    dev: true
+    dev: false
 
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -1113,8 +1114,8 @@ packages:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
     dev: false
 
-  /fastify@4.21.0:
-    resolution: {integrity: sha512-tsu4bcwE4HetxqW8prA5fbC9bKHMYDp7jGEDWyzK1l90a3uOaLoIcQbdGcWeODNLVJviQnzh1wvIjTZE3MJFEg==}
+  /fastify@4.22.0:
+    resolution: {integrity: sha512-HLoBmetdQ6zaJohKW6jzUww8NnwHzkbIbUEyAzM+Nnf7cZVSXRuUV+6b2/xLmu6GGkruIFJ/bIQoKWYRx4wnAQ==}
     dependencies:
       '@fastify/ajv-compiler': 3.5.0
       '@fastify/error': 3.2.0
