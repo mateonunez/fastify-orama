@@ -1,9 +1,17 @@
 name: ci
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -16,3 +24,19 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run test
+
+  automerge:
+    name: Automerge Dependabot PRs
+    if: >
+        github.event_name == 'pull_request' &&
+        github.event.pull_request.user.login == 'dependabot[bot]'
+    needs: test
+    permissions:
+      pull-requests: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target: major
