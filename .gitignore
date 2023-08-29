@@ -146,3 +146,4 @@ orama.json
 .dccache
 package-lock.json
 pnpm-lock.yaml
+yarn.lock
