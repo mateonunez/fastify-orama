@@ -1,17 +1,18 @@
 name: ci
 
-on:
-  push:
-    paths-ignore:
-      - 'docs/**'
-      - '*.md'
-  pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - '*.md'
+on: [push, pull_request]
 
 jobs:
-  test:
-    uses: fastify/workflows/.github/workflows/plugins-ci.yml@v3
-    with:
-      lint: true
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run lint
+      - run: npm run test
