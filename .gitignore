@@ -144,3 +144,5 @@ orama.json
 
 # Snyk
 .dccache
+package-lock.json
+pnpm-lock.yaml
