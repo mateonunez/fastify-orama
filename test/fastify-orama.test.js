@@ -5,11 +5,7 @@ import { ok, strictEqual } from 'node:assert'
 import Fastify from 'fastify'
 import FastifyOrama from '../index.js'
 
-it('Should exists correctly FastifyOrama plugin', async () => {
-  after(() => {
-    fastify.close()
-  })
-
+it('Should register correctly FastifyOrama plugin', async () => {
   const fastify = Fastify()
   await fastify.register(FastifyOrama, {
     schema: {
@@ -22,10 +18,6 @@ it('Should exists correctly FastifyOrama plugin', async () => {
 })
 
 it('Should insert and retrieve data using Orama', async () => {
-  after(() => {
-    fastify.close()
-  })
-
   const fastify = Fastify()
 
   await fastify.register(FastifyOrama, {
@@ -49,10 +41,6 @@ it('Should insert and retrieve data using Orama', async () => {
 })
 
 it('Should throw an error when the schema is not declared', async () => {
-  after(() => {
-    fastify.close()
-  })
-
   const fastify = Fastify()
 
   try {
@@ -63,10 +51,6 @@ it('Should throw an error when the schema is not declared', async () => {
 })
 
 it('Should throw when trying to register multiple instances without giving a name', async () => {
-  after(() => {
-    fastify.close()
-  })
-
   const fastify = Fastify()
 
   try {

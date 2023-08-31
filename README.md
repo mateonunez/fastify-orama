@@ -2,7 +2,7 @@
 
 ![Continuous Integration](https://github.com/mateonunez/fastify-orama/workflows/ci/badge.svg)
 
-Orama plugin for Fastify.
+[Orama](https://oramasearch.com/) plugin for Fastify.
 
 ## Installation
 
@@ -47,7 +47,8 @@ app.listen(3000)
 
 ## Usage with data persistence
 
-This plugin implements [@oramasearch/plugin-data-persistence](https://github.com/oramasearch/plugin-data-persistence) to allow users to `load` or `save` database instances.
+This plugin implements [`@oramasearch/plugin-data-persistence`](https://docs.oramasearch.com/plugins/plugin-data-persistence)
+to allow users to `load` or `save` database instances.
 
 ### Example
 

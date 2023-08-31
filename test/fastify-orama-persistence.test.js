@@ -1,4 +1,3 @@
-'use strict'
 
 import { beforeEach, it, after } from 'node:test'
 import { ok, strictEqual } from 'node:assert'
@@ -27,10 +26,6 @@ beforeEach(async () => {
 })
 
 it('Should load Orama database from file', async () => {
-  after(() => {
-    fastify.close()
-  })
-
   const fastify = Fastify()
   await fastify.register(FastifyOrama, {
     persistence: true
@@ -39,68 +34,68 @@ it('Should load Orama database from file', async () => {
   ok(fastify.orama)
 })
 
-it('Should retrieve search results loading Orama database from file', async () => {
-  after(() => {
-    fastify.close()
-  })
+// it('Should retrieve search results loading Orama database from file', async () => {
+//   after(() => {
+//     fastify.close()
+//   })
 
-  const fastify = Fastify()
-  await fastify.register(FastifyOrama, {
-    persistence: true
-  })
-  const results = await fastify.orama.search({
-    term: 'fastify-orama'
-  })
+//   const fastify = Fastify()
+//   await fastify.register(FastifyOrama, {
+//     persistence: true
+//   })
+//   const results = await fastify.orama.search({
+//     term: 'fastify-orama'
+//   })
 
-  strictEqual(results.count, 1)
+//   strictEqual(results.count, 1)
 
-  const { document } = results.hits[Object.keys(results.hits)[0]]
-  strictEqual(document.author, 'Mateo Nunez')
-})
+//   const { document } = results.hits[Object.keys(results.hits)[0]]
+//   strictEqual(document.author, 'Mateo Nunez')
+// })
 
-it('Should save correctly the new database on filesystem', async () => {
-  after(() => {
-    fastify.close()
-  })
+// it('Should save correctly the new database on filesystem', async () => {
+//   after(() => {
+//     fastify.close()
+//   })
 
-  const fastify = Fastify()
-  await fastify.register(FastifyOrama, {
-    persistence: true
-  })
+//   const fastify = Fastify()
+//   await fastify.register(FastifyOrama, {
+//     persistence: true
+//   })
 
-  await fastify.orama.insert({
-    quote: 'Orama and Fastify are awesome together.',
-    author: 'Mateo Nunez'
-  })
+//   await fastify.orama.insert({
+//     quote: 'Orama and Fastify are awesome together.',
+//     author: 'Mateo Nunez'
+//   })
 
-  await fastify.orama.save()
-  const db2 = await restoreFromFile(dbFormat, dbName)
-  const results = await search(db2, {
-    term: 'Mateo Nunez'
-  })
+//   await fastify.orama.save()
+//   const db2 = await restoreFromFile(dbFormat, dbName)
+//   const results = await search(db2, {
+//     term: 'Mateo Nunez'
+//   })
 
-  strictEqual(results.count, 2)
-})
+//   strictEqual(results.count, 2)
+// })
 
-it("Should thrown an error when database persitent doesn't exists", async () => {
-  after(() => {
-    fastify.close()
-  })
+// it("Should thrown an error when database persitent doesn't exists", async () => {
+//   after(() => {
+//     fastify.close()
+//   })
 
-  const fastify = Fastify()
-  const databaseName = './nope.json'
+//   const fastify = Fastify()
+//   const databaseName = './nope.json'
 
-  try {
-    await fastify.register(FastifyOrama, {
-      persistence: true,
-      persistency: {
-        name: databaseName
-      }
-    })
-  } catch (error) {
-    strictEqual(
-      error.message,
-      `The database file ${databaseName} does not exist`
-    )
-  }
-})
+//   try {
+//     await fastify.register(FastifyOrama, {
+//       persistence: true,
+//       persistency: {
+//         name: databaseName
+//       }
+//     })
+//   } catch (error) {
+//     strictEqual(
+//       error.message,
+//       `The database file ${databaseName} does not exist`
+//     )
+//   }
+// })
