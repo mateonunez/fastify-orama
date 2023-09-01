@@ -10,7 +10,7 @@ async function FastifyOrama (fastify, options) {
   }
 
   const {
-    persistence = new PersistenceInMemory(),
+    persistence,
     ...oramaOptions
   } = options
 

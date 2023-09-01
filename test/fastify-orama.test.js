@@ -1,6 +1,6 @@
 'use strict'
 
-import { it, after } from 'node:test'
+import { it } from 'node:test'
 import { ok, strictEqual } from 'node:assert'
 import Fastify from 'fastify'
 import FastifyOrama from '../index.js'
@@ -15,6 +15,7 @@ it('Should register correctly FastifyOrama plugin', async () => {
   })
 
   ok(fastify.orama)
+  ok(fastify.orama.save === undefined)
 })
 
 it('Should insert and retrieve data using Orama', async () => {
