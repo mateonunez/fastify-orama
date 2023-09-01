@@ -27,8 +27,8 @@ async function FastifyOrama (fastify, options) {
 
     // todo: could we check if the db.schema is the same as the one provided in the options?
 
-    oramaApi.save = async function () {
-      return await persistence.persist(db)
+    oramaApi.save = /* async */ function save () {
+      return persistence.persist(db)
     }
   }
 
