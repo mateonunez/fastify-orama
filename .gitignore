@@ -148,3 +148,4 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock
 *.msp
+orama_[0-9]*.json
