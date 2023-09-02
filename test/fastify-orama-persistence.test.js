@@ -138,32 +138,32 @@ describe('PersistenceInFile', () => {
 
 describe('PersistenceInMemory', () => {
   it('Should load Orama database from memory', async () => {
-    const fastify = Fastify()
-    await fastify.register(fastifyOrama, {
+    const fastifyOne = Fastify()
+    await fastifyOne.register(fastifyOrama, {
       schema: { author: 'string', quote: 'string' },
       persistence: new PersistenceInMemory()
     })
 
-    await fastify.ready()
+    await fastifyOne.ready()
 
     {
-      const results = await fastify.orama.search({ term: 'Mateo Nunez' })
+      const results = await fastifyOne.orama.search({ term: 'Mateo Nunez' })
       strictEqual(results.count, 0)
     }
 
-    await fastify.orama.insert({
+    await fastifyOne.orama.insert({
       quote: 'Orama and Fastify are awesome together.',
       author: 'Mateo Nunez'
     })
 
-    const inMemoryDb = await fastify.orama.save()
+    const inMemoryDb = await fastifyOne.orama.save()
 
     {
-      const results = await fastify.orama.search({ term: 'Mateo Nunez' })
+      const results = await fastifyOne.orama.search({ term: 'Mateo Nunez' })
       strictEqual(results.count, 1)
     }
 
-    await fastify.close()
+    await fastifyOne.close()
 
     const fastifyTwo = Fastify()
     await fastifyTwo.register(fastifyOrama, {
