@@ -1,11 +1,11 @@
 import Fastify from 'fastify'
 import { expectType } from 'tsd'
-import FastifyOrama from '.'
+import fastifyOrama from '.'
 import { Result } from '@orama/orama'
 
 const app = Fastify()
 
-app.register(FastifyOrama, {
+app.register(fastifyOrama, {
   schema: {
     quote: 'string',
     author: 'string'

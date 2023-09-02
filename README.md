@@ -16,11 +16,11 @@ npm install fastify-orama
 
 ```js
 import Fastify from 'fastify'
-import FastifyOrama from 'fastify-orama'
+import fastifyOrama from 'fastify-orama'
 
 const app = Fastify()
 
-await app.register(FastifyOrama, {
+await app.register(fastifyOrama, {
   schema: {
     quote: "string",
     author: "string"
@@ -54,12 +54,12 @@ to allow users to `load` or `save` database instances.
 
 ```js
 import Fastify from 'fastify'
-import FastifyOrama from 'fastify-orama'
+import fastifyOrama from 'fastify-orama'
 
 const app = Fastify()
 
 // The database must exists to load it in your Fastify application
-await app.register(FastifyOrama, {
+await app.register(fastifyOrama, {
   persistence: true,
   persistency: {
     name: './quotes.json',
@@ -90,4 +90,4 @@ app.listen(3000)
 
 ## License
 
-FastifyOrama is licensed under the [MIT](LICENSE) license.
+fastifyOrama is licensed under the [MIT](LICENSE) license.

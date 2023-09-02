@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test'
 import { strictEqual, match } from 'node:assert'
 import Fastify from 'fastify'
-import { FastifyOrama, PersistenceInMemory, PersistenceInFile } from '../index.js'
+import { fastifyOrama, PersistenceInMemory, PersistenceInFile } from '../index.js'
 import { create, insert } from '@orama/orama'
 import { persistToFile } from '@orama/plugin-data-persistence/server'
 
@@ -28,10 +28,10 @@ async function buildFakeDb (filePath, format) {
 
 describe('PersistenceInFile', () => {
   it('Should load Orama database from file (binary)', async () => {
-    const opts = await buildFakeDb(`./orama_${Date.now()}.msp`, 'binary')
+    const opts = await buildFakeDb(`./orama_test_${Date.now()}.msp`, 'binary')
 
     const fastify = Fastify()
-    await fastify.register(FastifyOrama, {
+    await fastify.register(fastifyOrama, {
       persistence: new PersistenceInFile(opts)
     })
 
@@ -45,10 +45,10 @@ describe('PersistenceInFile', () => {
   })
 
   it('Should load Orama database from file (json)', async () => {
-    const opts = await buildFakeDb(`./orama_${Date.now()}.json`, 'json')
+    const opts = await buildFakeDb(`./orama_test_${Date.now()}.json`, 'json')
 
     const fastify = Fastify()
-    await fastify.register(FastifyOrama, {
+    await fastify.register(fastifyOrama, {
       persistence: new PersistenceInFile(opts)
     })
 
@@ -63,12 +63,12 @@ describe('PersistenceInFile', () => {
 
   it('Should save correctly the new database on filesystem when it is created for the first time', async () => {
     const opts = {
-      filePath: 'can-save.msp',
+      filePath: 'orama_test_can-save.msp',
       format: 'binary'
     }
 
     const fastify = Fastify()
-    await fastify.register(FastifyOrama, {
+    await fastify.register(fastifyOrama, {
       schema: { author: 'string', quote: 'string' },
       persistence: new PersistenceInFile(opts)
     })
@@ -97,8 +97,8 @@ describe('PersistenceInFile', () => {
   it('Should reject when the database file is missing and there is no schema', async () => {
     try {
       const fastify = Fastify()
-      await fastify.register(FastifyOrama, {
-        persistence: new PersistenceInFile({ filePath: `${Date.now()}.msp` })
+      await fastify.register(fastifyOrama, {
+        persistence: new PersistenceInFile({ filePath: `orama_test_${Date.now()}.msp` })
       })
     } catch (error) {
       strictEqual(error.message, 'You must provide a schema to create a new database')
@@ -108,10 +108,10 @@ describe('PersistenceInFile', () => {
   it('Should reject when the database is missing and it is mandatory', async () => {
     try {
       const fastify = Fastify()
-      await fastify.register(FastifyOrama, {
+      await fastify.register(fastifyOrama, {
         schema: { author: 'string', quote: 'string' },
         persistence: new PersistenceInFile({
-          filePath: `${Date.now()}.msp`,
+          filePath: `orama_test_${Date.now()}.msp`,
           mustExistOnStart: true
         })
       })
@@ -123,7 +123,7 @@ describe('PersistenceInFile', () => {
   it('Should load the default db name', async () => {
     await buildFakeDb('./orama.msp', 'binary')
     const fastify = Fastify()
-    await fastify.register(FastifyOrama, {
+    await fastify.register(fastifyOrama, {
       persistence: new PersistenceInFile({
         mustExistOnStart: true
       })
@@ -139,7 +139,7 @@ describe('PersistenceInFile', () => {
 describe('PersistenceInMemory', () => {
   it('Should load Orama database from memory', async () => {
     const fastify = Fastify()
-    await fastify.register(FastifyOrama, {
+    await fastify.register(fastifyOrama, {
       schema: { author: 'string', quote: 'string' },
       persistence: new PersistenceInMemory()
     })
@@ -166,7 +166,7 @@ describe('PersistenceInMemory', () => {
     await fastify.close()
 
     const fastifyTwo = Fastify()
-    await fastifyTwo.register(FastifyOrama, {
+    await fastifyTwo.register(fastifyOrama, {
       persistence: new PersistenceInMemory({
         jsonIndex: inMemoryDb
       })

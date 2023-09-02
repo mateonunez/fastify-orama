@@ -4,7 +4,7 @@ import { create, insert, search } from '@orama/orama' // todo we are limiting th
 import PersistenceInMemory from './lib/persistence/in-memory.js'
 import PersistenceInFile from './lib/persistence/in-file.js'
 
-async function FastifyOrama (fastify, options) {
+async function fastifyOrama (fastify, options) {
   if (fastify.orama) {
     throw new Error('fastify-orama is already registered')
   }
@@ -43,13 +43,13 @@ async function FastifyOrama (fastify, options) {
   fastify.decorate('orama', oramaApi)
 }
 
-export default fp(FastifyOrama, {
+export default fp(fastifyOrama, {
   fastify: '4.x',
   name: 'fastify-orama'
 })
 
 export {
-  FastifyOrama,
+  fastifyOrama,
   PersistenceInMemory,
   PersistenceInFile
 }

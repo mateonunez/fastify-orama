@@ -5,7 +5,7 @@ type OramaInstance = {
   schema: Orama['schema'],
 }
 
-declare const FastifyOrama: FastifyPluginCallback<OramaInstance>
+declare const fastifyOrama: FastifyPluginCallback<OramaInstance>
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -16,5 +16,5 @@ declare module 'fastify' {
   }
 }
 
-export default FastifyOrama
-export { FastifyOrama }
+export default fastifyOrama
+export { fastifyOrama }

@@ -13,12 +13,15 @@
   "scripts": {
     "lint": "standard | snazzy",
     "lint:fix": "standard --fix | snazzy",
-    "pretest": "rm -f *.msp",
+    "pretest": "npm run clean",
     "test": "npm run lint && npm run unit && npm run typescript",
+    "posttest": "npm run clean",
     "typescript": "tsd",
     "prepare": "husky install",
-    "preunit": "rm -f *.msp",
-    "unit": "c8 node --test --test-reporter spec"
+    "clean": "rm -f orama_test* && rm -f *.msp",
+    "preunit": "npm run clean",
+    "unit": "c8 node --test --test-reporter spec",
+    "postunit": "npm run clean"
   },
   "repository": {
     "type": "git",
