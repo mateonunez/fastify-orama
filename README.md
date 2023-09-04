@@ -85,7 +85,7 @@ app.register(fastifyOrama, {
     quote: "string",
     author: "string"
   },
-  persistency: new PersistenceInFile({
+  persistence: new PersistenceInFile({
     filePath: './db.json', // Default: './orama.msp'
     format: 'json', // Default: 'binary',
     mustExistOnStart: true // Default: false
