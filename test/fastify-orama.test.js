@@ -1,17 +1,13 @@
 'use strict'
 
-import { it, after } from 'node:test'
+import { it } from 'node:test'
 import { ok, strictEqual } from 'node:assert'
 import Fastify from 'fastify'
-import FastifyOrama from '../index.js'
+import fastifyOrama from '../index.js'
 
-it('Should exists correctly FastifyOrama plugin', async () => {
-  after(() => {
-    fastify.close()
-  })
-
+it('Should register correctly fastifyOrama plugin', async () => {
   const fastify = Fastify()
-  await fastify.register(FastifyOrama, {
+  await fastify.register(fastifyOrama, {
     schema: {
       quote: 'string',
       author: 'string'
@@ -19,16 +15,13 @@ it('Should exists correctly FastifyOrama plugin', async () => {
   })
 
   ok(fastify.orama)
+  ok(fastify.orama.save === undefined)
 })
 
 it('Should insert and retrieve data using Orama', async () => {
-  after(() => {
-    fastify.close()
-  })
-
   const fastify = Fastify()
 
-  await fastify.register(FastifyOrama, {
+  await fastify.register(fastifyOrama, {
     schema: {
       quote: 'string',
       author: 'string'
@@ -49,35 +42,27 @@ it('Should insert and retrieve data using Orama', async () => {
 })
 
 it('Should throw an error when the schema is not declared', async () => {
-  after(() => {
-    fastify.close()
-  })
-
   const fastify = Fastify()
 
   try {
-    await fastify.register(FastifyOrama)
+    await fastify.register(fastifyOrama)
   } catch (error) {
     strictEqual(error.message, 'You must provide a schema to create a new database')
   }
 })
 
 it('Should throw when trying to register multiple instances without giving a name', async () => {
-  after(() => {
-    fastify.close()
-  })
-
   const fastify = Fastify()
 
   try {
-    await fastify.register(FastifyOrama, {
+    await fastify.register(fastifyOrama, {
       schema: {
         quote: 'string',
         author: 'string'
       }
     })
 
-    await fastify.register(FastifyOrama, {
+    await fastify.register(fastifyOrama, {
       schema: {
         anotherColumn: 'string',
         antoherHere: 'string'

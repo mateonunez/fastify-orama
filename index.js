@@ -1,55 +1,53 @@
 import fp from 'fastify-plugin'
-import { create, insert, search } from '@orama/orama'
-import path from 'path'
-import { existsSync } from 'fs'
-import { restoreFromFile, persistToFile } from '@orama/plugin-data-persistence/server'
+import { create, insert, search } from '@orama/orama' // todo we are limiting the api to the server side
 
-async function FastifyOrama (fastify, options) {
-  const {
-    schema,
-    defaultLanguage = 'english',
-    stemming = true,
-    persistence = false
-  } = options
+import PersistenceInMemory from './lib/persistence/in-memory.js'
+import PersistenceInFile from './lib/persistence/in-file.js'
 
+async function fastifyOrama (fastify, options) {
   if (fastify.orama) {
     throw new Error('fastify-orama is already registered')
   }
 
+  const {
+    persistence,
+    ...oramaOptions
+  } = options
+
   let db
-  let dbName
-  let dbFormat
+
+  const oramaApi = {
+    insert: (...args) => insert(db, ...args),
+    search: (...args) => search(db, ...args),
+    save: undefined
+  }
 
   if (persistence) {
-    dbName = options.persistency?.name || './orama.json'
-    dbFormat = options.persistency?.format || 'json'
-    const databaseExists = existsSync(path.resolve(dbName))
+    db = await persistence.restore()
 
-    if (!databaseExists) {
-      throw new Error(`The database file ${dbName} does not exist`)
+    oramaApi.save = /* async */ function save () {
+      return persistence.persist(db)
     }
+  }
 
-    db = await restoreFromFile(dbFormat, `./${dbName}`)
-  } else {
-    if (!schema) {
+  if (!db) {
+    if (!oramaOptions.schema) {
       throw new Error('You must provide a schema to create a new database')
     }
 
-    db = await create({
-      schema,
-      defaultLanguage,
-      stemming
-    })
+    db = await create(oramaOptions)
   }
 
-  fastify.decorate('orama', {
-    insert: (...args) => insert(db, ...args),
-    search: (...args) => search(db, ...args),
-    save: () => persistToFile(db, dbFormat, dbName)
-  })
+  fastify.decorate('orama', oramaApi)
 }
 
-export default fp(FastifyOrama, {
+export default fp(fastifyOrama, {
   fastify: '4.x',
-  name: '@fastify/orama'
+  name: 'fastify-orama'
 })
+
+export {
+  fastifyOrama,
+  PersistenceInMemory,
+  PersistenceInFile
+}
