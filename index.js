@@ -1,8 +1,12 @@
 import fp from 'fastify-plugin'
-import { create, insert, search } from '@orama/orama' // todo we are limiting the api to the server side
+import * as Orama from '@orama/orama'
 
 import PersistenceInMemory from './lib/persistence/in-memory.js'
 import PersistenceInFile from './lib/persistence/in-file.js'
+
+const SKIP_METHODS = [
+  'create',
+]
 
 async function fastifyOrama (fastify, options) {
   if (fastify.orama) {
@@ -17,15 +21,20 @@ async function fastifyOrama (fastify, options) {
   let db
 
   const oramaApi = {
-    insert: (...args) => insert(db, ...args),
-    search: (...args) => search(db, ...args),
-    save: undefined
+    persist: undefined // custom
+  }
+
+  const oramaProxyKeys = Object.keys(Orama)
+    .filter((key) => typeof Orama[key] === 'function' && !SKIP_METHODS.includes(key))
+
+  for (const key of oramaProxyKeys) {
+    oramaApi[key] = (...args) => Orama[key](db, ...args)
   }
 
   if (persistence) {
     db = await persistence.restore()
 
-    oramaApi.save = /* async */ function save () {
+    oramaApi.persist = /* async */ function persist () {
       return persistence.persist(db)
     }
   }
@@ -35,7 +44,7 @@ async function fastifyOrama (fastify, options) {
       throw new Error('You must provide a schema to create a new database')
     }
 
-    db = await create(oramaOptions)
+    db = await Orama.create(oramaOptions)
   }
 
   fastify.decorate('orama', oramaApi)

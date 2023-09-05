@@ -35,7 +35,7 @@ declare module 'fastify' {
     orama: {
       insert: (document: Document) => Promise<string>,
       search: (params: SearchParams) => Promise<Results>,
-      save?: () => Promise<any>,
+      persist?: () => Promise<any>,
     }
   }
 }

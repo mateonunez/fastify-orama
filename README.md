@@ -16,6 +16,14 @@ npm install fastify-orama
 ## Usage
 
 This plugin adds the `orama` decorator to your Fastify application.
+The decorator exposes all the methods that the Orama class exposes such as:
+
+- `insert`
+- `insertMultiple`
+- `getByID`
+- `count`
+- `remove`
+- `removeMultiple`
 
 The `options` object is passed directly to the `Orama.create` constructor,
 so it supports [all the options that Orama supports](https://docs.oramasearch.com/usage/create).
@@ -56,9 +64,9 @@ This plugin supports data persistence out of the box.
 You need to pass the `persistence` option to the plugin registration!
 
 This plugin uses [`@oramasearch/plugin-data-persistence`](https://docs.oramasearch.com/plugins/plugin-data-persistence)
-under the hood to allow users to `load` or `save` database instances.
+under the hood to allow users to `load` or `persist` database instances.
 
-Turning on the `persistence` option will add the `fastify.orama.save()` method to your Fastify application.
+Turning on the `persistence` option will add the `fastify.orama.persist()` method to your Fastify application.
 You must call this method to save the database instance to the persistence layer, otherwise your data will be lost.
 
 ### PersistenceInFile
@@ -103,8 +111,8 @@ app.post('/quotes', async function (req, reply) {
   return { success: true }
 })
 
-app.addHook('onClose', async function save (app) {
-  const path = await app.orama.save()
+app.addHook('onClose', async function persist (app) {
+  const path = await app.orama.persist()
   app.log.info(`Database saved to ${path}`)
 })
 
@@ -137,7 +145,7 @@ await appOne.orama.insert({
   author: 'Mateo Nunez'
 })
 
-const inMemoryDb = await appOne.orama.save()
+const inMemoryDb = await appOne.orama.persist()
 
 // Close the Fastify application
 await appOne.close()
@@ -169,7 +177,7 @@ const customPersistance = {
 
   persist: async function persist (db) {
     // Persist the database instance to the persistence layer
-    // Whatever this method returns will be passed to the `app.orama.save()` method
+    // Whatever this method returns will be passed to the `app.orama.persist()` method
 }
 
 await fastify.register(fastifyOrama, {

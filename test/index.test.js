@@ -15,7 +15,7 @@ it('Should register correctly fastifyOrama plugin', async () => {
   })
 
   ok(fastify.orama)
-  ok(fastify.orama.save === undefined)
+  ok(fastify.orama.persist === undefined)
 })
 
 it('Should insert and retrieve data using Orama', async () => {
