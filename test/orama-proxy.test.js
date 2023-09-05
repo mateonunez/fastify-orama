@@ -1,9 +1,9 @@
 'use strict'
 
 import { it } from 'node:test'
-import { ok, strictEqual, } from 'node:assert'
+import { ok, strictEqual } from 'node:assert'
 import Fastify from 'fastify'
-import fastifyOrama from '../index.js'
+import { fastifyOrama, oramaInternals } from '../index.js'
 
 it('Should expose all the Orama APIs', async () => {
   const fastify = Fastify()
@@ -15,8 +15,8 @@ it('Should expose all the Orama APIs', async () => {
       director: 'string',
       plot: 'string',
       year: 'number',
-      isFavorite: 'boolean',
-    },
+      isFavorite: 'boolean'
+    }
   })
 
   const harryPotterId = await fastify.orama.insert({
@@ -24,8 +24,8 @@ it('Should expose all the Orama APIs', async () => {
     director: 'Chris Columbus',
     plot: 'Harry Potter, an eleven-year-old orphan, discovers that he is a wizard and is invited to study at Hogwarts. Even as he escapes a dreary life and enters a world of magic, he finds trouble awaiting him.',
     year: 2001,
-    isFavorite: false,
-  });
+    isFavorite: false
+  })
   ok(harryPotterId, 'the id is returned')
 
   const docs = [
@@ -34,18 +34,18 @@ it('Should expose all the Orama APIs', async () => {
       director: 'Christopher Nolan',
       plot: 'Two friends and fellow magicians become bitter enemies after a sudden tragedy. As they devote themselves to this rivalry, they make sacrifices that bring them fame but with terrible consequences.',
       year: 2006,
-      isFavorite: true,
+      isFavorite: true
     },
     {
       title: 'Big Fish',
       director: 'Tim Burton',
       plot: 'Will Bloom returns home to care for his dying father, who had a penchant for telling unbelievable stories. After he passes away, Will tries to find out if his tales were really true.',
       year: 2004,
-      isFavorite: true,
-    },
-  ];
+      isFavorite: true
+    }
+  ]
 
-  const docIds = await fastify.orama.insertMultiple(docs, 500);
+  const docIds = await fastify.orama.insertMultiple(docs, 500)
   ok(docIds.length === 2, 'the ids are returned')
 
   const thePrestige = await fastify.orama.getByID(docIds[0])
@@ -77,9 +77,33 @@ it('Should not expose some Orama APIs', async () => {
       director: 'string',
       plot: 'string',
       year: 'number',
-      isFavorite: 'boolean',
-    },
+      isFavorite: 'boolean'
+    }
   })
 
   ok(fastify.orama.create === undefined)
+})
+
+it('Should not expose Orama internals', async () => {
+  const fastify = Fastify()
+
+  fastify.register(fastifyOrama, {
+    id: 'my-orama-instance',
+    schema: {
+      title: 'string',
+      director: 'string',
+      plot: 'string',
+      year: 'number',
+      isFavorite: 'boolean'
+    }
+  })
+
+  fastify.get('/genId', async function handler () {
+    return { newId: await oramaInternals.uniqueId() }
+  })
+
+  const response = await fastify.inject('/genId')
+  strictEqual(response.statusCode, 200)
+  ok(response.json().newId, 'the id is returned')
+  ok(typeof response.json().newId === 'string', 'the id is a string')
 })

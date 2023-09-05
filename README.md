@@ -186,6 +186,29 @@ await fastify.register(fastifyOrama, {
 })
 ```
 
+## Orama Internals
+
+Do you need to access the [Orama internals utilities](https://docs.oramasearch.com/internals/utilities)?
+No problem!
+
+```js
+import { fastifyOrama, oramaInternals } from 'fastify-orama'
+
+const app = Fastify()
+
+// The database must exists to load it in your Fastify application
+app.register(fastifyOrama, {
+  schema: {
+    quote: "string",
+    author: "string"
+  }
+})
+
+app.get('/genId', async function handler (req, reply) {
+  return { newId: await oramaInternals.uniqueId() }
+})
+```
+
 ## License
 
 fastifyOrama is licensed under the [MIT](LICENSE) license.

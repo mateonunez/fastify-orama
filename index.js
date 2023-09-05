@@ -5,8 +5,10 @@ import PersistenceInMemory from './lib/persistence/in-memory.js'
 import PersistenceInFile from './lib/persistence/in-file.js'
 
 const SKIP_METHODS = [
-  'create',
+  'create'
 ]
+
+const oramaInternals = Orama.internals
 
 async function fastifyOrama (fastify, options) {
   if (fastify.orama) {
@@ -58,5 +60,6 @@ export default fp(fastifyOrama, {
 export {
   fastifyOrama,
   PersistenceInMemory,
-  PersistenceInFile
+  PersistenceInFile,
+  oramaInternals
 }
