@@ -85,7 +85,7 @@ describe('PersistenceInFile', () => {
       author: 'Mateo Nunez'
     })
 
-    const path = await fastify.orama.save()
+    const path = await fastify.orama.persist()
     strictEqual(path, opts.filePath)
 
     {
@@ -156,7 +156,7 @@ describe('PersistenceInMemory', () => {
       author: 'Mateo Nunez'
     })
 
-    const inMemoryDb = await fastifyOne.orama.save()
+    const inMemoryDb = await fastifyOne.orama.persist()
 
     {
       const results = await fastifyOne.orama.search({ term: 'Mateo Nunez' })
