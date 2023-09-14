@@ -1,6 +1,6 @@
 {
   "name": "fastify-orama",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Orama search-engine plugin for Fastify",
   "main": "index.js",
   "type": "module",
