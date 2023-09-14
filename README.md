@@ -16,14 +16,7 @@ npm install fastify-orama
 ## Usage
 
 This plugin adds the `orama` decorator to your Fastify application.
-The decorator exposes all the methods that the Orama class exposes such as:
-
-- `insert`
-- `insertMultiple`
-- `getByID`
-- `count`
-- `remove`
-- `removeMultiple`
+The decorator exposes all the methods that [the Orama class exposes](https://docs.oramasearch.com/usage/create).
 
 The `options` object is passed directly to the `Orama.create` constructor,
 so it supports [all the options that Orama supports](https://docs.oramasearch.com/usage/create).
