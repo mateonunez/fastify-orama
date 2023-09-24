@@ -1,8 +1,10 @@
-import fp from 'fastify-plugin'
-import * as Orama from '@orama/orama'
+'use strict'
 
-import PersistenceInMemory from './lib/persistence/in-memory.js'
-import PersistenceInFile from './lib/persistence/in-file.js'
+const fp = require('fastify-plugin')
+const Orama = require('@orama/orama')
+
+const PersistenceInMemory = require('./lib/persistence/in-memory.js')
+const PersistenceInFile = require('./lib/persistence/in-file.js')
 
 const SKIP_METHODS = [
   'create'
@@ -52,14 +54,12 @@ async function fastifyOrama (fastify, options) {
   fastify.decorate('orama', oramaApi)
 }
 
-export default fp(fastifyOrama, {
+module.exports = fp(fastifyOrama, {
   fastify: '4.x',
   name: 'fastify-orama'
 })
 
-export {
-  fastifyOrama,
-  PersistenceInMemory,
-  PersistenceInFile,
-  oramaInternals
-}
+module.exports.fastifyOrama = fastifyOrama
+module.exports.PersistenceInMemory = PersistenceInMemory
+module.exports.PersistenceInFile = PersistenceInFile
+module.exports.oramaInternals = oramaInternals

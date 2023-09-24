@@ -1,9 +1,11 @@
-import { describe, it } from 'node:test'
-import { strictEqual, match } from 'node:assert'
-import Fastify from 'fastify'
-import { fastifyOrama, PersistenceInMemory, PersistenceInFile } from '../index.js'
-import { create, insert } from '@orama/orama'
-import { persistToFile } from '@orama/plugin-data-persistence/server'
+'use strict'
+
+const { describe, it } = require('node:test')
+const { strictEqual, match } = require('node:assert')
+const Fastify = require('fastify')
+const { fastifyOrama, PersistenceInMemory, PersistenceInFile } = require('../index.js')
+const { create, insert } = require('@orama/orama')
+const { persistToFile } = require('@orama/plugin-data-persistence/server')
 
 async function buildFakeDb (filePath, format) {
   const db = await create({

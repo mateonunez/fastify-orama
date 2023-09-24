@@ -3,7 +3,6 @@
   "version": "0.7.0",
   "description": "Orama search-engine plugin for Fastify",
   "main": "index.js",
-  "type": "module",
   "types": "index.d.ts",
   "author": {
     "name": "Mateo Nunez",

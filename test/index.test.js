@@ -1,9 +1,9 @@
 'use strict'
 
-import { it } from 'node:test'
-import { ok, strictEqual } from 'node:assert'
-import Fastify from 'fastify'
-import fastifyOrama from '../index.js'
+const { it } = require('node:test')
+const { ok, strictEqual } = require('node:assert')
+const Fastify = require('fastify')
+const fastifyOrama = require('../index.js')
 
 it('Should register correctly fastifyOrama plugin', async () => {
   const fastify = Fastify()
