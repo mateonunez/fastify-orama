@@ -1,40 +1,41 @@
 import type { FastifyPluginCallback } from 'fastify'
-import type { Document, Orama, ProvidedTypes, Results, SearchParams, create } from '@orama/orama'
+import type { TypedDocument, insert, Orama, Results, SearchParams, create, AnyOrama, PartialSchemaDeep, Schema } from '@orama/orama'
 
-interface OramaPersistence {
-  restore: () => Promise<ReturnType<typeof create> | null>
-  persist: (data: ReturnType<typeof create>) => Promise<any>
+interface FastifyOramaPersistence<T = any, O = any> {
+  restore: () => Promise<Orama<T> | null>
+  persist: (data: Orama<T>) => Promise<O>
 }
 
-declare class PersistenceInMemory implements OramaPersistence {
+
+declare class PersistenceInMemory<T = any, O = string | Buffer> implements FastifyOramaPersistence<T, O> {
   constructor(options?: {
     jsonIndex?: string,
   })
-  restore: () => Promise<Promise<Orama<ProvidedTypes>> | null>
-  persist: (data: Promise<Orama<ProvidedTypes>>) => Promise<string>
+  restore: () => Promise<Orama<T> | null>
+  persist: (data: Orama<T>) => Promise<O>
 }
 
-declare class PersistenceInFile implements OramaPersistence {
+declare class PersistenceInFile<T = any, O = string> implements FastifyOramaPersistence<T, O> {
   constructor(options?: {
     filePath?: string,
     format?: string,
     mustExistOnStart?: boolean
   })
-  restore: () => Promise<Promise<Orama<ProvidedTypes>> | null>
-  persist: (data: Promise<Orama<ProvidedTypes>>) => Promise<string>
+  restore: () => Promise<Orama<T> | null>
+  persist: (data: Orama<T>) => Promise<O>
 }
 
-type OramaPluginOptions = {
-  persistence?: OramaPersistence
+type FastifyOramaPluginOptions = {
+  persistence?: FastifyOramaPersistence
 } & Partial<Parameters<typeof create>[0]>
 
-declare const fastifyOrama: FastifyPluginCallback<OramaPluginOptions>
+declare const fastifyOrama: FastifyPluginCallback<FastifyOramaPluginOptions>
 
 declare module 'fastify' {
   interface FastifyInstance {
-    orama: {
-      insert: (document: Document) => Promise<string>,
-      search: (params: SearchParams) => Promise<Results>,
+    getOrama<T>(): {
+      insert: (document: PartialSchemaDeep<TypedDocument<Orama<T>>>) => Promise<string>,
+      search: (params: SearchParams<Orama<Schema<T>>, T>) => Promise<Results<Schema<T>>>,
       persist?: () => Promise<any>,
     }
   }

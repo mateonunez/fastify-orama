@@ -72,3 +72,16 @@ it('Should throw when trying to register multiple instances without giving a nam
     strictEqual(error.message, 'fastify-orama is already registered')
   }
 })
+
+it('Expose a getOrama function', async () => {
+  const fastify = Fastify()
+
+  await fastify.register(fastifyOrama, {
+    schema: {
+      quote: 'string',
+      author: 'string'
+    }
+  })
+
+  strictEqual(fastify.orama, fastify.getOrama())
+})

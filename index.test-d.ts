@@ -1,17 +1,21 @@
 import { expectType } from 'tsd'
 
 import Fastify from 'fastify'
-import { Result } from '@orama/orama'
+import { TypedDocument, Orama, Results, Schema, InternalTypedDocument } from '@orama/orama'
 
 import { fastifyOrama, PersistenceInMemory, PersistenceInFile } from '.'
 
 const app = Fastify()
 
+const mySchema = {
+  quote: 'string',
+  author: 'string'
+} as const
+type MySchema = Schema<typeof mySchema>
+
+
 app.register(fastifyOrama, {
-  schema: {
-    quote: 'string',
-    author: 'string'
-  },
+  schema: mySchema,
   prefix: '/api/orama',
   language: 'en'
 })
@@ -37,12 +41,17 @@ app.register(fastifyOrama, {
   })
 })
 
-app.orama.insert({ quote: 'Hello', author: 'World' })
+const orama = app.getOrama<typeof mySchema>()
+const id = await orama.insert({ quote: 'Hello', author: 'World' })
+expectType<string>(id)
 
 app.get('/hello', async () => {
-  const result = await app.orama.search({ term: 'hello' })
 
-  expectType<Result[]>(result.hits)
+  const orama = app.getOrama<typeof mySchema>()
+  const result = await orama.search({ term: 'hello' })
+
+  expectType<Results<InternalTypedDocument<MySchema>>>(result)
+  expectType<string>(result.hits[0].document.author)
 
   return {
     hello: result.hits
