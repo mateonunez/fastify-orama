@@ -52,9 +52,6 @@ async function fastifyOrama (fastify, options) {
   }
 
   fastify.decorate('orama', oramaApi)
-  fastify.decorate('getOrama', function () {
-    return oramaApi
-  })
 }
 
 module.exports = fp(fastifyOrama, {

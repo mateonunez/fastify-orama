@@ -1,9 +1,9 @@
-import { expectType } from 'tsd'
+import {expectType} from 'tsd'
 
+import {InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, SearchParams, TypedDocument} from '@orama/orama'
 import Fastify from 'fastify'
-import { TypedDocument, Orama, Results, Schema, InternalTypedDocument } from '@orama/orama'
 
-import { fastifyOrama, PersistenceInMemory, PersistenceInFile } from '.'
+import {PersistenceInFile, PersistenceInMemory, fastifyOrama} from '.'
 
 const app = Fastify()
 
@@ -41,13 +41,13 @@ app.register(fastifyOrama, {
   })
 })
 
-const orama = app.getOrama<typeof mySchema>()
-const id = await orama.insert({ quote: 'Hello', author: 'World' })
+const appWithOrama = app.withOrama<typeof mySchema>()
+const id = await appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
 expectType<string>(id)
 
 app.get('/hello', async () => {
 
-  const orama = app.getOrama<typeof mySchema>()
+  const {orama} = appWithOrama
   const result = await orama.search({ term: 'hello' })
 
   expectType<Results<InternalTypedDocument<MySchema>>>(result)
@@ -57,3 +57,9 @@ app.get('/hello', async () => {
     hello: result.hits
   }
 })
+
+expectType<{
+  insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
+  search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
+  persist?: () => Promise<any>,
+}>(appWithOrama.orama)
