@@ -52,7 +52,7 @@ async function fastifyOrama (fastify, options) {
   }
 
   function withOrama () {
-    return fastify
+    return this
   }
 
   fastify.decorate('orama', oramaApi)
