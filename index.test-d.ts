@@ -45,7 +45,7 @@ const appWithOrama = app.withOrama<typeof mySchema>()
 const id = await appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
 expectType<string>(id)
 
-app.get('/hello', async () => {
+appWithOrama.get('/hello', async () => {
 
   const {orama} = appWithOrama
   const result = await orama.search({ term: 'hello' })
