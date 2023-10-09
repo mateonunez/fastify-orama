@@ -2,8 +2,9 @@ import { expectType } from 'tsd'
 
 import { InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, SearchParams, TypedDocument } from '@orama/orama'
 import Fastify from 'fastify'
+import fp from 'fastify-plugin'
 
-import {PersistenceInFile, PersistenceInMemory, fastifyOrama} from '../..'
+import { PersistenceInFile, PersistenceInMemory, fastifyOrama } from '../..'
 
 const app = Fastify()
 
@@ -63,3 +64,13 @@ expectType<{
   search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
   persist?: () => Promise<any>,
 }>(appWithOrama.orama)
+
+fp(function(fastify) {
+  const fastifyWithOrama = fastify.withOrama<typeof mySchema>()
+
+  expectType<{
+    insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
+    search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
+    persist?: () => Promise<any>,
+  }>(fastifyWithOrama.orama)
+})

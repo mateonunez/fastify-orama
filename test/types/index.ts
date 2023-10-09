@@ -1,6 +1,6 @@
 import Fastify from 'fastify'
 
-import {PersistenceInMemory, fastifyOrama} from '../..'
+import { PersistenceInMemory, fastifyOrama } from '../..'
 
 (async function () {
   const app = Fastify()
