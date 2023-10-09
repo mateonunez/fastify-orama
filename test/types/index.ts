@@ -1,4 +1,3 @@
-import {Schema} from '@orama/orama'
 import Fastify from 'fastify'
 
 import {PersistenceInMemory, fastifyOrama} from '../..'

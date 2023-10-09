@@ -1,6 +1,6 @@
-import {expectType} from 'tsd'
+import { expectType } from 'tsd'
 
-import {InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, SearchParams, TypedDocument} from '@orama/orama'
+import { InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, SearchParams, TypedDocument } from '@orama/orama'
 import Fastify from 'fastify'
 
 import {PersistenceInFile, PersistenceInMemory, fastifyOrama} from '../..'
