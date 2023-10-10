@@ -73,7 +73,7 @@ it('Should throw when trying to register multiple instances without giving a nam
   }
 })
 
-it('Expose a getOrama function', async () => {
+it('Expose a withOrama function', async () => {
   const fastify = Fastify()
 
   await fastify.register(fastifyOrama, {
@@ -83,5 +83,7 @@ it('Expose a getOrama function', async () => {
     }
   })
 
-  strictEqual(fastify.orama, fastify.getOrama())
+  const withOrama = fastify.withOrama()
+
+  strictEqual(fastify.orama, withOrama.orama)
 })

@@ -31,13 +31,17 @@ type FastifyOramaPluginOptions = {
 
 declare const fastifyOrama: FastifyPluginCallback<FastifyOramaPluginOptions>
 
+interface OramaApi<T> {
+  insert: (document: PartialSchemaDeep<TypedDocument<Orama<T>>>) => Promise<string>,
+  search: (params: SearchParams<Orama<Schema<T>>, T>) => Promise<Results<Schema<T>>>,
+  persist?: () => Promise<any>,
+}
+
 declare module 'fastify' {
   interface FastifyInstance {
-    getOrama<T>(): {
-      insert: (document: PartialSchemaDeep<TypedDocument<Orama<T>>>) => Promise<string>,
-      search: (params: SearchParams<Orama<Schema<T>>, T>) => Promise<Results<Schema<T>>>,
-      persist?: () => Promise<any>,
-    }
+    withOrama<T>(): this & {
+      orama: OramaApi<T>
+    };
   }
 }
 

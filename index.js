@@ -51,10 +51,12 @@ async function fastifyOrama (fastify, options) {
     db = await Orama.create(oramaOptions)
   }
 
+  function withOrama () {
+    return this
+  }
+
   fastify.decorate('orama', oramaApi)
-  fastify.decorate('getOrama', function () {
-    return oramaApi
-  })
+  fastify.decorate('withOrama', withOrama)
 }
 
 module.exports = fp(fastifyOrama, {
