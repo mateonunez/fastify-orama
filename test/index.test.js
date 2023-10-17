@@ -1,9 +1,9 @@
 'use strict'
 
-import { it } from 'node:test'
-import { ok, strictEqual } from 'node:assert'
-import Fastify from 'fastify'
-import fastifyOrama from '../index.js'
+const { it } = require('node:test')
+const { ok, strictEqual } = require('node:assert')
+const Fastify = require('fastify')
+const fastifyOrama = require('../index.js')
 
 it('Should register correctly fastifyOrama plugin', async () => {
   const fastify = Fastify()
@@ -71,4 +71,19 @@ it('Should throw when trying to register multiple instances without giving a nam
   } catch (error) {
     strictEqual(error.message, 'fastify-orama is already registered')
   }
+})
+
+it('Expose a withOrama function', async () => {
+  const fastify = Fastify()
+
+  await fastify.register(fastifyOrama, {
+    schema: {
+      quote: 'string',
+      author: 'string'
+    }
+  })
+
+  const withOrama = fastify.withOrama()
+
+  strictEqual(fastify.orama, withOrama.orama)
 })

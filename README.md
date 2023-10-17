@@ -202,6 +202,58 @@ app.get('/genId', async function handler (req, reply) {
 })
 ```
 
+## Typescript
+
+This plugin comes with Typescript support out of the box.
+Using the `withOrama` helper, you can access the `orama` decorator in your Fastify application with the correct schema.
+
+```ts
+import Fastify from 'fastify'
+
+import { PersistenceInMemory, fastifyOrama } from 'fastify-orama'
+
+const app = Fastify()
+
+const mySchema = {
+  quote: 'string',
+  author: 'string'
+} as const
+
+await app.register(fastifyOrama, {
+  schema: mySchema,
+  persistence: new PersistenceInMemory()
+})
+
+const appWithOrama = app.withOrama<typeof mySchema>()
+const id = await appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
+
+appWithOrama.get('/hello', async () => {
+
+  const {orama} = appWithOrama
+  const result = await orama.search({ term: 'hello' })
+
+  return {
+    hello: result.hits
+  }
+})
+```
+
+Usage with `fastify-plugin`:
+
+```ts
+import fp from 'fastify-plugin'
+
+fp(function plugins(fastify) {
+  const fastifyWithOrama = fastify.withOrama<typeof mySchema>()
+
+  expectType<{
+    insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
+    search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
+    persist?: () => Promise<any>,
+  }>(fastifyWithOrama.orama)
+})
+```
+
 ## License
 
 fastifyOrama is licensed under the [MIT](LICENSE) license.
