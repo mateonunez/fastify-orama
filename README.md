@@ -16,10 +16,10 @@ npm install fastify-orama
 ## Usage
 
 This plugin adds the `orama` decorator to your Fastify application.
-The decorator exposes all the methods that [the Orama class exposes](https://docs.oramasearch.com/usage/create).
+The decorator exposes all the methods that [the Orama class exposes](https://docs.oramasearch.com/open-source/usage/create).
 
 The `options` object is passed directly to the `Orama.create` constructor,
-so it supports [all the options that Orama supports](https://docs.oramasearch.com/usage/create).
+so it supports [all the options that Orama supports](https://docs.oramasearch.com/open-source/usage/create).
 
 ### Example
 
@@ -56,7 +56,7 @@ app.listen({ port: 3000 })
 This plugin supports data persistence out of the box.
 You need to pass the `persistence` option to the plugin registration!
 
-This plugin uses [`@oramasearch/plugin-data-persistence`](https://docs.oramasearch.com/plugins/plugin-data-persistence)
+This plugin uses [`@oramasearch/plugin-data-persistence`](https://docs.oramasearch.com/open-source/plugins/plugin-data-persistence)
 under the hood to allow users to `load` or `persist` database instances.
 
 Turning on the `persistence` option will add the `fastify.orama.persist()` method to your Fastify application.
@@ -171,6 +171,7 @@ const customPersistance = {
   persist: async function persist (db) {
     // Persist the database instance to the persistence layer
     // Whatever this method returns will be passed to the `app.orama.persist()` method
+  }
 }
 
 await fastify.register(fastifyOrama, {
