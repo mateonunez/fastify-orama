@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/mateonunez/fastify-orama#readme",
   "dependencies": {
-    "@orama/orama": "^1.2.11",
+    "@orama/orama": "^2.0.0",
     "@orama/plugin-data-persistence": "^2.0.0",
     "fastify-plugin": "^4.5.1"
   },
