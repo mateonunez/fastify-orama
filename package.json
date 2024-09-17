@@ -46,7 +46,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "c8": "^10.0.0",
-    "fastify": "^4.24.2",
+    "fastify": "^5.0.0",
     "husky": "^9.0.5",
     "snazzy": "^9.0.0",
     "standard": "^17.1.0",
