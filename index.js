@@ -60,7 +60,7 @@ async function fastifyOrama (fastify, options) {
 }
 
 module.exports = fp(fastifyOrama, {
-  fastify: '4.x',
+  fastify: '5.x',
   name: 'fastify-orama'
 })
 
