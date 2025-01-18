@@ -10,6 +10,13 @@
 npm install fastify-orama
 ```
 
+### Compatibility
+
+| Plugin version | Fastify version | Orama version |
+| ------------- |:---------------:|------------:|
+| `^2.0.0` | `^5.0.0` | `^2.0.0` |
+| `^1.0.0` | `^4.0.0` | `^2.0.0` |
+
 ****
 
 
