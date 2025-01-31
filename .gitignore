@@ -140,12 +140,13 @@ dist
 .idea
 
 # DB test
+*.msp
 orama.json
+orama_[0-9]*.json
+orama_test_[0-9]*.json
 
 # Snyk
 .dccache
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
-*.msp
-orama_[0-9]*.json

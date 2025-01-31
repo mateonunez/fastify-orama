@@ -14,7 +14,8 @@ npm install fastify-orama
 
 | Plugin version | Fastify version | Orama version |
 |----------------|:---------------:|--------------:|
-| `^2.0.0`       |    `^5.0.0`     |      `^3.0.0` |
+| `^3.0.0`       |    `^5.0.0`     |      `^3.0.0` |
+| `^2.0.0`       |    `^5.0.0`     |      `^2.0.0` |
 | `^1.0.0`       |    `^4.0.0`     |      `^2.0.0` |
 
 ****
@@ -46,7 +47,7 @@ app.register(fastifyOrama, {
 app.get('/quotes/:query', async function handler (req, reply) {
   const { params: { query } } = req
 
-  const search = await app.orama.search({
+  const search = app.orama.search({
     term: query,
     properties: ["quote"]
   })
@@ -100,10 +101,10 @@ app.register(fastifyOrama, {
   })
 })
 
-app.post('/quotes', async function (req, reply) {
+app.post('/quotes', function (req, reply) {
   const { body: { author, quote } } = req
 
-  await fastify.orama.insert({
+  fastify.orama.insert({
     author,
     quote
   })
@@ -141,7 +142,7 @@ await appOne.register(fastifyOrama, {
 })
 
 // Do some stuff with the database
-await appOne.orama.insert({
+appOne.orama.insert({
   quote: 'Orama and Fastify are awesome together.',
   author: 'Mateo Nunez'
 })
@@ -161,7 +162,7 @@ await appTwo.register(fastifyOrama, {
 })
 
 // The database is persisted between Fastify applications
-const results = await appTwo.orama.search({ term: 'Mateo Nunez' })
+const results = appTwo.orama.search({ term: 'Mateo Nunez' })
 ```
 
 ### Custom persistence
@@ -206,8 +207,8 @@ app.register(fastifyOrama, {
   }
 })
 
-app.get('/genId', async function handler (req, reply) {
-  return { newId: await oramaInternals.uniqueId() }
+app.get('/genId', function handler (req, reply) {
+  return { newId: oramaInternals.uniqueId() }
 })
 ```
 
@@ -234,12 +235,12 @@ await app.register(fastifyOrama, {
 })
 
 const appWithOrama = app.withOrama<typeof mySchema>()
-const id = await appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
+const id = appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
 
 appWithOrama.get('/hello', async () => {
 
   const {orama} = appWithOrama
-  const result = await orama.search({ term: 'hello' })
+  const result = orama.search({ term: 'hello' })
 
   return {
     hello: result.hits
@@ -256,8 +257,8 @@ fp(function plugins(fastify) {
   const fastifyWithOrama = fastify.withOrama<typeof mySchema>()
 
   expectType<{
-    insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
-    search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
+    insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => string,
+    search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Results<Schema<typeof mySchema>>,
     persist?: () => Promise<any>,
   }>(fastifyWithOrama.orama)
 })

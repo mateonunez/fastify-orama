@@ -48,7 +48,7 @@ async function fastifyOrama (fastify, options) {
       throw new Error('You must provide a schema to create a new database')
     }
 
-    db = await Orama.create(oramaOptions)
+    db = Orama.create(oramaOptions)
   }
 
   function withOrama () {
