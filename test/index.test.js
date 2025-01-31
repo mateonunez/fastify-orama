@@ -28,12 +28,12 @@ it('Should insert and retrieve data using Orama', async () => {
     }
   })
 
-  await fastify.orama.insert({
+  fastify.orama.insert({
     quote: 'Hi there! This is fastify-orama plugin.',
     author: 'Mateo Nunez'
   })
 
-  const search = await fastify.orama.search({
+  const search = fastify.orama.search({
     term: 'fastify-orama'
   })
 

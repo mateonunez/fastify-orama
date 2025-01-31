@@ -19,7 +19,7 @@ it('Should expose all the Orama APIs', async () => {
     }
   })
 
-  const harryPotterId = await fastify.orama.insert({
+  const harryPotterId = fastify.orama.insert({
     title: 'Harry Potter and the Philosopher\'s Stone',
     director: 'Chris Columbus',
     plot: 'Harry Potter, an eleven-year-old orphan, discovers that he is a wizard and is invited to study at Hogwarts. Even as he escapes a dreary life and enters a world of magic, he finds trouble awaiting him.',
@@ -45,25 +45,25 @@ it('Should expose all the Orama APIs', async () => {
     }
   ]
 
-  const docIds = await fastify.orama.insertMultiple(docs, 500)
+  const docIds = fastify.orama.insertMultiple(docs, 500)
   ok(docIds.length === 2, 'the ids are returned')
 
-  const thePrestige = await fastify.orama.getByID(docIds[0])
+  const thePrestige = fastify.orama.getByID(docIds[0])
   strictEqual(thePrestige.title, 'The prestige')
 
-  const docNumber = await fastify.orama.count()
+  const docNumber = fastify.orama.count()
   strictEqual(docNumber, 3)
 
-  const del = await fastify.orama.remove(harryPotterId)
+  const del = fastify.orama.remove(harryPotterId)
   ok(del, 'the document was deleted')
 
-  const docNumberUpdated = await fastify.orama.count()
+  const docNumberUpdated = fastify.orama.count()
   strictEqual(docNumberUpdated, 2)
 
-  const delMultiple = await fastify.orama.removeMultiple(docIds, 500)
+  const delMultiple = fastify.orama.removeMultiple(docIds, 500)
   strictEqual(delMultiple, 2, 'the documents were deleted')
 
-  const docEmpty = await fastify.orama.count()
+  const docEmpty = fastify.orama.count()
   strictEqual(docEmpty, 0)
 })
 
@@ -98,8 +98,8 @@ it('Should not expose Orama internals', async () => {
     }
   })
 
-  fastify.get('/genId', async function handler () {
-    return { newId: await oramaInternals.uniqueId() }
+  fastify.get('/genId', function handler () {
+    return { newId: oramaInternals.uniqueId() }
   })
 
   const response = await fastify.inject('/genId')

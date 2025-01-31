@@ -16,12 +16,12 @@ import { PersistenceInMemory, fastifyOrama } from '../..'
   })
 
   const appWithOrama = app.withOrama<typeof mySchema>()
-  const id = await appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
+  const id = appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
 
   appWithOrama.get('/hello', async () => {
 
     const {orama} = appWithOrama
-    const result = await orama.search({ term: 'hello' })
+    const result = orama.search({ term: 'hello' })
 
     return {
       hello: result.hits

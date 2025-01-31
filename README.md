@@ -13,17 +13,18 @@ npm install fastify-orama
 ### Compatibility
 
 | Plugin version | Fastify version | Orama version |
-| ------------- |:---------------:|------------:|
-| `^2.0.0` | `^5.0.0` | `^2.0.0` |
-| `^1.0.0` | `^4.0.0` | `^2.0.0` |
+|----------------|:---------------:|--------------:|
+| `^3.0.0`       |    `^5.0.0`     |      `^3.0.0` |
+| `^2.0.0`       |    `^5.0.0`     |      `^2.0.0` |
+| `^1.0.0`       |    `^4.0.0`     |      `^2.0.0` |
 
 ****
-
 
 ## Usage
 
 This plugin adds the `orama` decorator to your Fastify application.
-The decorator exposes all the methods that [the Orama class exposes](https://docs.oramasearch.com/open-source/usage/create).
+The decorator exposes all the methods
+that [the Orama class exposes](https://docs.oramasearch.com/open-source/usage/create).
 
 The `options` object is passed directly to the `Orama.create` constructor,
 so it supports [all the options that Orama supports](https://docs.oramasearch.com/open-source/usage/create).
@@ -46,7 +47,7 @@ app.register(fastifyOrama, {
 app.get('/quotes/:query', async function handler (req, reply) {
   const { params: { query } } = req
 
-  const search = await app.orama.search({
+  const search = app.orama.search({
     term: query,
     properties: ["quote"]
   })
@@ -57,13 +58,13 @@ app.get('/quotes/:query', async function handler (req, reply) {
 app.listen({ port: 3000 })
 ```
 
-
 ## Usage with data persistence
 
 This plugin supports data persistence out of the box.
 You need to pass the `persistence` option to the plugin registration!
 
-This plugin uses [`@oramasearch/plugin-data-persistence`](https://docs.oramasearch.com/open-source/plugins/plugin-data-persistence)
+This plugin uses [
+`@oramasearch/plugin-data-persistence`](https://docs.oramasearch.com/open-source/plugins/plugin-data-persistence)
 under the hood to allow users to `load` or `persist` database instances.
 
 Turning on the `persistence` option will add the `fastify.orama.persist()` method to your Fastify application.
@@ -78,8 +79,8 @@ Its constructor accepts the following options:
 
 - `filePath`: The path to the file where the data will be persisted. Default: `./orama.msp`
 - `format`: The format of the file where the data will be persisted. Default: `binary`
-- `mustExistOnStart`: Whether the file must exist when the plugin is registered or not. Default: `false`. Note that if the file does not exist, you must specify the `schema` option in the plugin registration.
-
+- `mustExistOnStart`: Whether the file must exist when the plugin is registered or not. Default: `false`. Note that if
+  the file does not exist, you must specify the `schema` option in the plugin registration.
 
 ```js
 import Fastify from 'fastify'
@@ -100,10 +101,10 @@ app.register(fastifyOrama, {
   })
 })
 
-app.post('/quotes', async function (req, reply) {
+app.post('/quotes', function (req, reply) {
   const { body: { author, quote } } = req
 
-  await fastify.orama.insert({
+  fastify.orama.insert({
     author,
     quote
   })
@@ -122,7 +123,8 @@ app.listen({ port: 3000 })
 ### PersistenceInMemory
 
 This plugin comes with a `PersistenceInMemory` class that allows you to persist your data in memory.
-This adapter may be useful for testing purposes, when you need to share the same database instance between multiple tests.
+This adapter may be useful for testing purposes, when you need to share the same database instance between multiple
+tests.
 
 Its constructor accepts the following options:
 
@@ -140,7 +142,7 @@ await appOne.register(fastifyOrama, {
 })
 
 // Do some stuff with the database
-await appOne.orama.insert({
+appOne.orama.insert({
   quote: 'Orama and Fastify are awesome together.',
   author: 'Mateo Nunez'
 })
@@ -160,7 +162,7 @@ await appTwo.register(fastifyOrama, {
 })
 
 // The database is persisted between Fastify applications
-const results = await appTwo.orama.search({ term: 'Mateo Nunez' })
+const results = appTwo.orama.search({ term: 'Mateo Nunez' })
 ```
 
 ### Custom persistence
@@ -205,8 +207,8 @@ app.register(fastifyOrama, {
   }
 })
 
-app.get('/genId', async function handler (req, reply) {
-  return { newId: await oramaInternals.uniqueId() }
+app.get('/genId', function handler (req, reply) {
+  return { newId: oramaInternals.uniqueId() }
 })
 ```
 
@@ -233,12 +235,12 @@ await app.register(fastifyOrama, {
 })
 
 const appWithOrama = app.withOrama<typeof mySchema>()
-const id = await appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
+const id = appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
 
 appWithOrama.get('/hello', async () => {
 
   const {orama} = appWithOrama
-  const result = await orama.search({ term: 'hello' })
+  const result = orama.search({ term: 'hello' })
 
   return {
     hello: result.hits
@@ -255,8 +257,8 @@ fp(function plugins(fastify) {
   const fastifyWithOrama = fastify.withOrama<typeof mySchema>()
 
   expectType<{
-    insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
-    search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
+    insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => string,
+    search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Results<Schema<typeof mySchema>>,
     persist?: () => Promise<any>,
   }>(fastifyWithOrama.orama)
 })
