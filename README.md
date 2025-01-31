@@ -13,17 +13,17 @@ npm install fastify-orama
 ### Compatibility
 
 | Plugin version | Fastify version | Orama version |
-| ------------- |:---------------:|------------:|
-| `^2.0.0` | `^5.0.0` | `^2.0.0` |
-| `^1.0.0` | `^4.0.0` | `^2.0.0` |
+|----------------|:---------------:|--------------:|
+| `^2.0.0`       |    `^5.0.0`     |      `^3.0.0` |
+| `^1.0.0`       |    `^4.0.0`     |      `^2.0.0` |
 
 ****
-
 
 ## Usage
 
 This plugin adds the `orama` decorator to your Fastify application.
-The decorator exposes all the methods that [the Orama class exposes](https://docs.oramasearch.com/open-source/usage/create).
+The decorator exposes all the methods
+that [the Orama class exposes](https://docs.oramasearch.com/open-source/usage/create).
 
 The `options` object is passed directly to the `Orama.create` constructor,
 so it supports [all the options that Orama supports](https://docs.oramasearch.com/open-source/usage/create).
@@ -57,13 +57,13 @@ app.get('/quotes/:query', async function handler (req, reply) {
 app.listen({ port: 3000 })
 ```
 
-
 ## Usage with data persistence
 
 This plugin supports data persistence out of the box.
 You need to pass the `persistence` option to the plugin registration!
 
-This plugin uses [`@oramasearch/plugin-data-persistence`](https://docs.oramasearch.com/open-source/plugins/plugin-data-persistence)
+This plugin uses [
+`@oramasearch/plugin-data-persistence`](https://docs.oramasearch.com/open-source/plugins/plugin-data-persistence)
 under the hood to allow users to `load` or `persist` database instances.
 
 Turning on the `persistence` option will add the `fastify.orama.persist()` method to your Fastify application.
@@ -78,8 +78,8 @@ Its constructor accepts the following options:
 
 - `filePath`: The path to the file where the data will be persisted. Default: `./orama.msp`
 - `format`: The format of the file where the data will be persisted. Default: `binary`
-- `mustExistOnStart`: Whether the file must exist when the plugin is registered or not. Default: `false`. Note that if the file does not exist, you must specify the `schema` option in the plugin registration.
-
+- `mustExistOnStart`: Whether the file must exist when the plugin is registered or not. Default: `false`. Note that if
+  the file does not exist, you must specify the `schema` option in the plugin registration.
 
 ```js
 import Fastify from 'fastify'
@@ -122,7 +122,8 @@ app.listen({ port: 3000 })
 ### PersistenceInMemory
 
 This plugin comes with a `PersistenceInMemory` class that allows you to persist your data in memory.
-This adapter may be useful for testing purposes, when you need to share the same database instance between multiple tests.
+This adapter may be useful for testing purposes, when you need to share the same database instance between multiple
+tests.
 
 Its constructor accepts the following options:
 
