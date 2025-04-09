@@ -51,7 +51,7 @@
     "snazzy": "^9.0.0",
     "standard": "^17.1.0",
     "ts-node": "^10.9.1",
-    "tsd": "^0.31.0",
+    "tsd": "^0.32.0",
     "typescript": "^5.2.2"
   },
   "publishConfig": {
