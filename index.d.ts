@@ -32,8 +32,8 @@ type FastifyOramaPluginOptions = {
 declare const fastifyOrama: FastifyPluginCallback<FastifyOramaPluginOptions>
 
 interface OramaApi<T> {
-  insert: (document: PartialSchemaDeep<TypedDocument<Orama<T>>>) => string,
-  search: (params: SearchParams<Orama<Schema<T>>, T>) => Results<Schema<T>>,
+  insert: (document: PartialSchemaDeep<TypedDocument<Orama<T>>>) => Promise<string>,
+  search: (params: SearchParams<Orama<Schema<T>>, T>) => Promise<Results<Schema<T>>>,
   persist?: () => Promise<any>,
 }
 
