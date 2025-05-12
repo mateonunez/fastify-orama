@@ -39,7 +39,7 @@ describe('PersistenceInFile', () => {
 
     await fastify.ready()
 
-    const results = fastify.orama.search({ term: 'fastify-orama' })
+    const results = await fastify.orama.search({ term: 'fastify-orama' })
     strictEqual(results.count, 1)
 
     const { document } = results.hits[Object.keys(results.hits)[0]]
@@ -56,7 +56,7 @@ describe('PersistenceInFile', () => {
 
     await fastify.ready()
 
-    const results = fastify.orama.search({ term: 'fastify-orama' })
+    const results = await fastify.orama.search({ term: 'fastify-orama' })
     strictEqual(results.count, 1)
 
     const { document } = results.hits[Object.keys(results.hits)[0]]
@@ -78,11 +78,11 @@ describe('PersistenceInFile', () => {
     await fastify.ready()
 
     {
-      const results = fastify.orama.search({ term: 'Mateo Nunez' })
+      const results = await fastify.orama.search({ term: 'Mateo Nunez' })
       strictEqual(results.count, 0)
     }
 
-    fastify.orama.insert({
+    await fastify.orama.insert({
       quote: 'Orama and Fastify are awesome together.',
       author: 'Mateo Nunez'
     })
@@ -91,7 +91,7 @@ describe('PersistenceInFile', () => {
     strictEqual(path, opts.filePath)
 
     {
-      const results = fastify.orama.search({ term: 'Mateo Nunez' })
+      const results = await fastify.orama.search({ term: 'Mateo Nunez' })
       strictEqual(results.count, 1)
     }
   })
@@ -133,7 +133,7 @@ describe('PersistenceInFile', () => {
 
     await fastify.ready()
 
-    const results = fastify.orama.search({ term: 'fastify-orama' })
+    const results = await fastify.orama.search({ term: 'fastify-orama' })
     strictEqual(results.count, 1)
   })
 })
@@ -149,11 +149,11 @@ describe('PersistenceInMemory', () => {
     await fastifyOne.ready()
 
     {
-      const results = fastifyOne.orama.search({ term: 'Mateo Nunez' })
+      const results = await fastifyOne.orama.search({ term: 'Mateo Nunez' })
       strictEqual(results.count, 0)
     }
 
-    fastifyOne.orama.insert({
+    await fastifyOne.orama.insert({
       quote: 'Orama and Fastify are awesome together.',
       author: 'Mateo Nunez'
     })
@@ -161,7 +161,7 @@ describe('PersistenceInMemory', () => {
     const inMemoryDb = await fastifyOne.orama.persist()
 
     {
-      const results = fastifyOne.orama.search({ term: 'Mateo Nunez' })
+      const results = await fastifyOne.orama.search({ term: 'Mateo Nunez' })
       strictEqual(results.count, 1)
     }
 
@@ -177,7 +177,7 @@ describe('PersistenceInMemory', () => {
     await fastifyTwo.ready()
 
     {
-      const results = fastifyTwo.orama.search({ term: 'Mateo Nunez' })
+      const results = await fastifyTwo.orama.search({ term: 'Mateo Nunez' })
       strictEqual(results.count, 1)
     }
   })

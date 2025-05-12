@@ -43,13 +43,14 @@ app.register(fastifyOrama, {
 })
 
 const appWithOrama = app.withOrama<typeof mySchema>()
-const id = appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
-expectType<string>(id)
+appWithOrama.orama.insert({ quote: 'Hello', author: 'World' }).then(id => {
+  expectType<string>(id)
+})
 
 appWithOrama.get('/hello', async () => {
 
   const {orama} = appWithOrama
-  const result = orama.search({ term: 'hello' })
+  const result = await orama.search({ term: 'hello' })
 
   expectType<Results<InternalTypedDocument<MySchema>>>(result)
   expectType<string>(result.hits[0].document.author)
@@ -60,8 +61,8 @@ appWithOrama.get('/hello', async () => {
 })
 
 expectType<{
-  insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => string,
-  search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Results<Schema<typeof mySchema>>,
+  insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
+  search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
   persist?: () => Promise<any>,
 }>(appWithOrama.orama)
 
@@ -69,8 +70,8 @@ fp(function(fastify) {
   const fastifyWithOrama = fastify.withOrama<typeof mySchema>()
 
   expectType<{
-    insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => string,
-    search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Results<Schema<typeof mySchema>>,
+    insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
+    search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
     persist?: () => Promise<any>,
   }>(fastifyWithOrama.orama)
 })
