@@ -17,6 +17,7 @@
     "posttest": "npm run clean",
     "typescript": "tsd",
     "prepare": "husky",
+    "posttypescript": "tstyche",
     "clean": "rm -f orama_test* && rm -f *.msp",
     "preunit": "npm run clean",
     "unit": "c8 node --test --test-reporter spec",
@@ -52,6 +53,7 @@
     "standard": "^17.1.2",
     "ts-node": "^10.9.2",
     "tsd": "^0.32.0",
+    "tstyche": "^4.0.2",
     "typescript": "^5.8.3"
   },
   "publishConfig": {
