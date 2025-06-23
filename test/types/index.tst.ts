@@ -1,4 +1,4 @@
-import { expectType } from 'tsd'
+import { expect } from 'tstyche'
 
 import { InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, SearchParams, TypedDocument } from '@orama/orama'
 import Fastify from 'fastify'
@@ -44,7 +44,7 @@ app.register(fastifyOrama, {
 
 const appWithOrama = app.withOrama<typeof mySchema>()
 appWithOrama.orama.insert({ quote: 'Hello', author: 'World' }).then(id => {
-  expectType<string>(id)
+  expect(id).type.toBe<string>()
 })
 
 appWithOrama.get('/hello', async () => {
@@ -52,26 +52,26 @@ appWithOrama.get('/hello', async () => {
   const {orama} = appWithOrama
   const result = await orama.search({ term: 'hello' })
 
-  expectType<Results<InternalTypedDocument<MySchema>>>(result)
-  expectType<string>(result.hits[0].document.author)
+  expect(result).type.toBe<Results<InternalTypedDocument<MySchema>>>()
+  expect(result.hits[0].document.author).type.toBe<string>()
 
   return {
     hello: result.hits
   }
 })
 
-expectType<{
+expect(appWithOrama.orama).type.toBe<{
   insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
   search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
   persist?: () => Promise<any>,
-}>(appWithOrama.orama)
+}>()
 
 fp(function(fastify) {
   const fastifyWithOrama = fastify.withOrama<typeof mySchema>()
 
-  expectType<{
+  expect(fastifyWithOrama.orama).type.toBe<{
     insert: (document: PartialSchemaDeep<TypedDocument<Orama<typeof mySchema>>>) => Promise<string>,
     search: (params: SearchParams<Orama<Schema<typeof mySchema>>, typeof mySchema>) => Promise<Results<Schema<typeof mySchema>>>,
     persist?: () => Promise<any>,
-  }>(fastifyWithOrama.orama)
+  }>()
 })
