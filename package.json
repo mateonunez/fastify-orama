@@ -16,7 +16,7 @@
     "test": "npm run lint && npm run unit && npm run typescript && ts-node test/types/index.ts",
     "posttest": "npm run clean",
     "typescript": "tsd",
-    "prepare": "husky install",
+    "prepare": "husky",
     "clean": "rm -f orama_test* && rm -f *.msp",
     "preunit": "npm run clean",
     "unit": "c8 node --test --test-reporter spec",
