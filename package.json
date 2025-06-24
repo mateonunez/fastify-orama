@@ -19,7 +19,7 @@
     "prepare": "husky",
     "clean": "rm -f orama_test* && rm -f *.msp",
     "preunit": "npm run clean",
-    "unit": "c8 node --test --test-reporter spec",
+    "unit": "c8 node --test **/*.test.{js,ts} --test-reporter spec",
     "postunit": "npm run clean"
   },
   "repository": {
