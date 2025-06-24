@@ -4,7 +4,7 @@ import { InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, Searc
 import Fastify from 'fastify'
 import fp from 'fastify-plugin'
 
-import { PersistenceInFile, PersistenceInMemory, fastifyOrama } from '../..'
+import { PersistenceInFile, PersistenceInMemory, fastifyOrama } from '../../index.js'
 
 const app = Fastify()
 
