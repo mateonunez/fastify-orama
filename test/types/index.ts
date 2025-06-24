@@ -16,7 +16,7 @@ import { PersistenceInMemory, fastifyOrama } from '../../index.js';
   })
 
   const appWithOrama = app.withOrama<typeof mySchema>()
-  const id = await appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
+  await appWithOrama.orama.insert({ quote: 'Hello', author: 'World' })
 
   appWithOrama.get('/hello', async () => {
 
