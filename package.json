@@ -15,7 +15,7 @@
     "pretest": "npm run clean",
     "test": "npm run lint && npm run unit && npm run typescript && ts-node test/types/index.ts",
     "posttest": "npm run clean",
-    "typescript": "tsd",
+    "typescript": "tstyche",
     "prepare": "husky",
     "clean": "rm -f orama_test* && rm -f *.msp",
     "preunit": "npm run clean",
@@ -51,14 +51,11 @@
     "snazzy": "^9.0.0",
     "standard": "^17.1.2",
     "ts-node": "^10.9.2",
-    "tsd": "^0.32.0",
+    "tstyche": "^4.0.2",
     "typescript": "^5.8.3"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "tsd": {
-    "directory": "test/types"
   },
   "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677"
 }
