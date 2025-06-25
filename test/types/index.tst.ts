@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'tstyche'
 
-import { type InternalTypedDocument, type Orama, type PartialSchemaDeep, type Results, type Schema, type SearchParams, type TypedDocument } from '@orama/orama'
+import { InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, SearchParams, TypedDocument } from '@orama/orama'
 import Fastify from 'fastify'
 import fp from 'fastify-plugin'
 
@@ -13,7 +13,7 @@ const mySchema = {
 
 type MySchema = Schema<typeof mySchema>
 
-const baseSetup = () => {
+function baseSetup() {
   const app = Fastify()
 
   app.register(fastifyOrama, {
@@ -24,7 +24,7 @@ const baseSetup = () => {
   return app.withOrama<typeof mySchema>()
 }
 
-const setupWithMorePersistenceOptions = () => {
+function setupWithMorePersistenceOptions() {
   const app = baseSetup()
 
   app.register(fastifyOrama, {
