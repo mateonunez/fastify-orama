@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'tstyche'
 
-import { InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, SearchParams, TypedDocument } from '@orama/orama'
+import type { InternalTypedDocument, Orama, PartialSchemaDeep, Results, Schema, SearchParams, TypedDocument } from '@orama/orama'
 import Fastify from 'fastify'
 import fp from 'fastify-plugin'
 
