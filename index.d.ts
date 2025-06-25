@@ -1,5 +1,5 @@
 import type { FastifyPluginCallback } from 'fastify'
-import type { TypedDocument, insert, Orama, Results, SearchParams, create, AnyOrama, PartialSchemaDeep, Schema } from '@orama/orama'
+import type { TypedDocument, insert, Orama, Results, SearchParams, create, AnyOrama, PartialSchemaDeep, Schema, internals } from '@orama/orama'
 
 interface FastifyOramaPersistence<T = any, O = any> {
   restore: () => Promise<Orama<T> | null>
@@ -31,6 +31,8 @@ type FastifyOramaPluginOptions = {
 
 declare const fastifyOrama: FastifyPluginCallback<FastifyOramaPluginOptions>
 
+declare const oramaInternals: typeof internals
+
 interface OramaApi<T> {
   insert: (document: PartialSchemaDeep<TypedDocument<Orama<T>>>) => Promise<string>,
   search: (params: SearchParams<Orama<Schema<T>>, T>) => Promise<Results<Schema<T>>>,
@@ -49,5 +51,6 @@ export { fastifyOrama as default }
 export {
   fastifyOrama,
   PersistenceInMemory,
-  PersistenceInFile
+  PersistenceInFile,
+  oramaInternals
 }
