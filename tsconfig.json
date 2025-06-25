@@ -1,4 +1,6 @@
 {
   "extends": "fastify-tsconfig",
-  "exclude": ["**/*.test.*", "**/*.tst.*"],
+  "compilerOptions": {
+    "strict": true,
+  }
 }
