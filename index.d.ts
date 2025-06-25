@@ -33,7 +33,7 @@ declare const fastifyOrama: FastifyPluginCallback<FastifyOramaPluginOptions>
 
 declare const oramaInternals: typeof internals
 
-interface OramaApi<T> {
+export interface OramaApi<T> {
   insert: (document: PartialSchemaDeep<TypedDocument<Orama<T>>>) => Promise<string>,
   search: (params: SearchParams<Orama<Schema<T>>, T>) => Promise<Results<Schema<T>>>,
   persist?: () => Promise<any>,
