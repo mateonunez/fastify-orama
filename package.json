@@ -53,7 +53,7 @@
     "snazzy": "^9.0.0",
     "standard": "^17.1.2",
     "tstyche": "^6.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.2"
   },
   "publishConfig": {
     "access": "public"
