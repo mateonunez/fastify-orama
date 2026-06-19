@@ -44,7 +44,7 @@
     "fastify-plugin": "^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^25.0.0",
+    "@types/node": "^26.0.0",
     "borp": "^0.21.0",
     "c8": "^11.0.0",
     "fastify": "^5.4.0",
